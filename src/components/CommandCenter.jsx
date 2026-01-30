@@ -344,9 +344,12 @@ function OpportunitiesTab({ data }) {
       {/* Opportunities */}
       <div className="space-y-3">
         {(top || []).map((opp, idx) => (
-          <div
+          <a
             key={idx}
-            className="p-4 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-amber-500/50 transition"
+            href={opp.url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-4 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-amber-500/50 hover:bg-gray-800 transition cursor-pointer"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
@@ -373,18 +376,11 @@ function OpportunitiesTab({ data }) {
                   </div>
                 )}
               </div>
-              {opp.url && (
-                <a
-                  href={opp.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white text-xl"
-                >
-                  →
-                </a>
-              )}
+              <span className="text-amber-400 hover:text-amber-300 text-lg font-bold">
+                Open →
+              </span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
@@ -400,7 +396,9 @@ function OpportunitiesTab({ data }) {
 function IntelTab({ data }) {
   if (!data) return <div className="text-gray-500">No intel data</div>;
 
-  const { by_company, total_count } = data;
+  const { by_company, total_count, summaries } = data;
+  const [showRaw, setShowRaw] = useState(false);
+
   const companies = Object.keys(by_company || {}).sort((a, b) => {
     // Vuori first, then by count
     if (a === 'Vuori') return -1;
@@ -408,9 +406,11 @@ function IntelTab({ data }) {
     return (by_company[b]?.length || 0) - (by_company[a]?.length || 0);
   });
 
+  const latestSummary = summaries && summaries.length > 0 ? summaries[0] : null;
+
   return (
     <div>
-      {/* Summary */}
+      {/* Summary Stats */}
       <div className="flex items-center gap-6 mb-6 p-4 bg-gray-800/50 rounded-xl">
         <div className="text-center">
           <div className="text-3xl font-bold text-blue-400">{companies.length}</div>
@@ -420,23 +420,57 @@ function IntelTab({ data }) {
           <div className="text-3xl font-bold text-white">{total_count || 0}</div>
           <div className="text-xs text-gray-400">Articles</div>
         </div>
+        {summaries && summaries.length > 0 && (
+          <div className="text-center">
+            <div className="text-3xl font-bold text-green-400">{summaries.length}</div>
+            <div className="text-xs text-gray-400">Digests</div>
+          </div>
+        )}
       </div>
 
-      {/* Companies */}
-      <div className="space-y-4">
-        {companies.map((company) => (
-          <CompanyIntel
-            key={company}
-            company={company}
-            articles={by_company[company] || []}
-            isVuori={company === 'Vuori'}
-          />
-        ))}
-      </div>
+      {/* Latest Summary */}
+      {latestSummary && (
+        <div className="mb-6 p-4 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl border border-blue-500/30">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <span>📊</span> Latest Intel Digest
+            </h3>
+            <span className="text-xs text-gray-400">{latestSummary.date}</span>
+          </div>
+          <div className="text-sm text-gray-300 whitespace-pre-wrap max-h-64 overflow-y-auto">
+            {latestSummary.analysis}
+          </div>
+          <div className="mt-3 text-xs text-gray-500">
+            Analyzed {latestSummary.article_count} articles from {latestSummary.companies?.length || 0} companies
+          </div>
+        </div>
+      )}
 
-      {companies.length === 0 && (
+      {/* Toggle for raw articles */}
+      <button
+        onClick={() => setShowRaw(!showRaw)}
+        className="mb-4 text-sm text-gray-400 hover:text-white flex items-center gap-2"
+      >
+        {showRaw ? '▼' : '▶'} {showRaw ? 'Hide' : 'Show'} Raw Articles ({total_count})
+      </button>
+
+      {/* Companies (Raw Articles) */}
+      {showRaw && (
+        <div className="space-y-4">
+          {companies.map((company) => (
+            <CompanyIntel
+              key={company}
+              company={company}
+              articles={by_company[company] || []}
+              isVuori={company === 'Vuori'}
+            />
+          ))}
+        </div>
+      )}
+
+      {!latestSummary && companies.length === 0 && (
         <div className="text-center py-8 text-gray-500">
-          No competitor intel yet.
+          No competitor intel yet. Run the summarizer to generate digests.
         </div>
       )}
     </div>
