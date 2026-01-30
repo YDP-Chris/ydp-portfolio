@@ -1,0 +1,349 @@
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import ProjectCard from './components/ProjectCard';
+import TechStack from './components/TechStack';
+import ContactForm from './components/ContactForm';
+import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
+
+// Forge webhook URL - Cloudflare tunnel for public access
+const FORGE_WEBHOOK_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://attorney-chester-type-light.trycloudflare.com';
+
+function App() {
+  const [pendingForge, setPendingForge] = useState(null);
+  const [forgeLoading, setForgeLoading] = useState(false);
+  const [forgeMessage, setForgeMessage] = useState('');
+
+  // Check for pending Forge jobs
+  useEffect(() => {
+    const checkPending = async () => {
+      try {
+        const res = await fetch(`${FORGE_WEBHOOK_URL}/forge/status`);
+        const data = await res.json();
+        if (data.pending) {
+          setPendingForge(data);
+        }
+      } catch (err) {
+        // Webhook not available - that's OK
+        console.log('Forge webhook not available');
+      }
+    };
+    checkPending();
+    // Check every 30 seconds
+    const interval = setInterval(checkPending, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleForgeAction = async (action) => {
+    setForgeLoading(true);
+    setForgeMessage('');
+    try {
+      const res = await fetch(`${FORGE_WEBHOOK_URL}/forge/${action}`, { method: 'POST' });
+      const data = await res.json();
+      setForgeMessage(data.message);
+      if (data.success) {
+        setPendingForge(null);
+      }
+    } catch (err) {
+      setForgeMessage('Error connecting to Forge server');
+    }
+    setForgeLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      <Hero />
+
+      {/* Projects Section */}
+      <section id="projects" className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Portfolio</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A selection of products and platforms built to solve real-world problems
+              across diverse industries.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Agent Created Builds Section */}
+      {agentBuilds.length > 0 && (
+        <section id="agent-builds" className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
+                Autonomous Development
+              </div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Agent Created Builds</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Products built autonomously by our Foundry and Forge AI agents during nightly build cycles.
+              </p>
+            </div>
+
+            {/* Pending Forge Approval Banner */}
+            {pendingForge && (
+              <div className="mb-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🔥</span>
+                    <div>
+                      <h3 className="font-bold text-gray-900">New Build Ready for Forge</h3>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">{pendingForge.product_name}</span> is waiting for productization
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {forgeMessage && (
+                      <span className="text-sm text-gray-600">{forgeMessage}</span>
+                    )}
+                    <button
+                      onClick={() => handleForgeAction('approve')}
+                      disabled={forgeLoading}
+                      className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-lg font-medium hover:from-orange-600 hover:to-amber-600 transition-all disabled:opacity-50 shadow-md"
+                    >
+                      {forgeLoading ? 'Processing...' : '✓ Send to Forge'}
+                    </button>
+                    <button
+                      onClick={() => handleForgeAction('skip')}
+                      disabled={forgeLoading}
+                      className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-all disabled:opacity-50"
+                    >
+                      Skip
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {agentBuilds.map((build) => (
+                <div key={build.id} className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-3xl">{build.image}</span>
+                      <div>
+                        <h3 className="font-bold text-gray-900">{build.title}</h3>
+                        <p className="text-sm text-gray-500">{build.category}</p>
+                      </div>
+                    </div>
+                    <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
+                      {build.status}
+                    </span>
+                  </div>
+
+                  <p className="text-gray-600 mb-4">{build.description}</p>
+
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {build.techStack.map((tech, idx) => (
+                      <span key={idx} className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <div className="text-sm text-gray-500">
+                      <span className="font-medium text-purple-600">{build.builtBy}</span>
+                      <span className="mx-2">·</span>
+                      <span>{build.builtOn}</span>
+                    </div>
+                    {build.url && (
+                      <a
+                        href={build.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline text-sm font-medium"
+                      >
+                        View Live →
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Agents Section */}
+      <section id="agents" className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-4 border border-green-500/30">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              Autonomous Systems
+            </div>
+            <h2 className="text-3xl font-bold mb-4">Agent Fleet</h2>
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+              A network of AI agents working 24/7 to build products, monitor competitors,
+              track opportunities, and keep infrastructure healthy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {agents.map((agent) => (
+              <div key={agent.id} className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all hover:transform hover:scale-[1.02]">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">{agent.icon}</span>
+                    <div>
+                      <h3 className="font-bold text-white">{agent.name}</h3>
+                      <p className="text-sm text-gray-400">{agent.tagline}</p>
+                    </div>
+                  </div>
+                  <span className={`text-xs font-medium px-2 py-1 rounded ${
+                    agent.status === 'active'
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      : 'bg-gray-600/20 text-gray-400'
+                  }`}>
+                    {agent.status === 'active' ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
+
+                <p className="text-gray-300 text-sm mb-4 leading-relaxed">{agent.description}</p>
+
+                <div className="mb-4">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Capabilities</div>
+                  <div className="flex flex-wrap gap-1">
+                    {agent.capabilities.slice(0, 3).map((cap, idx) => (
+                      <span key={idx} className="text-xs bg-gray-700/50 text-gray-300 px-2 py-1 rounded">
+                        {cap}
+                      </span>
+                    ))}
+                    {agent.capabilities.length > 3 && (
+                      <span className="text-xs bg-gray-700/50 text-gray-400 px-2 py-1 rounded">
+                        +{agent.capabilities.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-gray-700 flex items-center justify-between">
+                  <div className="text-xs text-gray-500">
+                    <span className="text-gray-400">{agent.schedule}</span>
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {agent.poweredBy}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-4 bg-gray-800/50 rounded-xl px-6 py-4 border border-gray-700">
+              <div className="text-left">
+                <div className="text-2xl font-bold text-white">{agents.length}</div>
+                <div className="text-xs text-gray-400">Active Agents</div>
+              </div>
+              <div className="w-px h-10 bg-gray-700"></div>
+              <div className="text-left">
+                <div className="text-2xl font-bold text-white">24/7</div>
+                <div className="text-xs text-gray-400">Monitoring</div>
+              </div>
+              <div className="w-px h-10 bg-gray-700"></div>
+              <div className="text-left">
+                <div className="text-2xl font-bold text-white">1/night</div>
+                <div className="text-xs text-gray-400">Products Built</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <TechStack categories={techCategories} />
+
+      {/* About Section */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">About YDP</h2>
+            <p className="text-lg text-gray-600 mb-8">
+              {companyInfo.description}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Core Capabilities</h3>
+              <ul className="space-y-3">
+                {companyInfo.capabilities.map((capability, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-gray-700">{capability}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Leadership</h3>
+              <div className="bg-gray-50 rounded-lg p-6">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h4 className="font-semibold text-gray-900">{companyInfo.founder.name}</h4>
+                    <p className="text-gray-600">{companyInfo.founder.title}</p>
+                    <p className="text-sm text-gray-500">{companyInfo.founder.location}</p>
+                  </div>
+                  {companyInfo.founder.experience && (
+                    <span className="bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                      {companyInfo.founder.experience}
+                    </span>
+                  )}
+                </div>
+                {companyInfo.founder.background && (
+                  <p className="text-sm text-gray-600 mb-3">{companyInfo.founder.background}</p>
+                )}
+                {companyInfo.founder.skills && (
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {companyInfo.founder.skills.map((skill, idx) => (
+                      <span key={idx} className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {companyInfo.founder.linkedin && (
+                  <a
+                    href={companyInfo.founder.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline text-sm font-medium"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <ContactForm />
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p className="text-gray-400">
+            © 2026 {companyInfo.name}. Built with precision and purpose.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
