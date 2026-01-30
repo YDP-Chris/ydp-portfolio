@@ -159,6 +159,7 @@ function CommandCenter({ isOpen, onClose }) {
               loading={loading}
               error={error}
               onRefresh={fetchData}
+              token={token}
             />
           )}
         </div>
@@ -198,10 +199,10 @@ function AuthForm({ password, setPassword, onSubmit, error, loading }) {
   );
 }
 
-function Dashboard({ activeTab, setActiveTab, data, loading, error, onRefresh }) {
+function Dashboard({ activeTab, setActiveTab, data, loading, error, onRefresh, token }) {
   const tabs = [
     { id: 'devops', label: 'DevOps', icon: '🩺' },
-    { id: 'opportunities', label: 'Opportunities', icon: '🎯' },
+    { id: 'problems', label: 'Problems', icon: '💡' },
     { id: 'intel', label: 'Intel', icon: '🕵️' }
   ];
 
@@ -244,7 +245,7 @@ function Dashboard({ activeTab, setActiveTab, data, loading, error, onRefresh })
       ) : (
         <>
           {activeTab === 'devops' && <DevOpsTab data={data.devops} />}
-          {activeTab === 'opportunities' && <OpportunitiesTab data={data.opportunities} />}
+          {activeTab === 'problems' && <ProblemsTab token={token} />}
           {activeTab === 'intel' && <IntelTab data={data.intel} />}
         </>
       )}
@@ -393,71 +394,180 @@ function DevOpsTab({ data }) {
   );
 }
 
-function OpportunitiesTab({ data }) {
-  if (!data) return <div className="text-gray-500">No opportunity data</div>;
+function ProblemsTab({ token }) {
+  const [problems, setProblems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(null);
+  const [message, setMessage] = useState('');
 
-  const { top, total_count, high_count } = data;
+  useEffect(() => {
+    fetchProblems();
+  }, [token]);
+
+  const fetchProblems = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${PULSE_API_URL}/pulse/problems`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      // Only show new problems (not approved/rejected)
+      setProblems((data.problems || []).filter(p => p.status === 'new'));
+    } catch (err) {
+      console.error('Error fetching problems:', err);
+    }
+    setLoading(false);
+  };
+
+  const handleAction = async (problem, action) => {
+    setActionLoading(problem.id);
+    setMessage('');
+
+    try {
+      const res = await fetch(`${PULSE_API_URL}/pulse/problems/${action}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: problem.id })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setMessage(action === 'approve' ? '✓ Added to Foundry backlog!' : 'Rejected');
+        // Remove from list
+        setProblems(prev => prev.filter(p => p.id !== problem.id));
+      } else {
+        setMessage(data.error || 'Action failed');
+      }
+    } catch (err) {
+      setMessage('Error: ' + err.message);
+    }
+    setActionLoading(null);
+  };
+
+  const getSourceLabel = (source) => {
+    if (source.startsWith('reddit_')) return 'r/' + source.replace('reddit_', '');
+    if (source === 'hn_ask') return 'Ask HN';
+    if (source === 'hn_comment') return 'HN Comment';
+    return source;
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="animate-spin text-4xl">⏳</div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {/* Summary */}
-      <div className="flex items-center gap-6 mb-6 p-4 bg-gray-800/50 rounded-xl">
-        <div className="text-center">
-          <div className="text-3xl font-bold text-amber-400">{high_count || 0}</div>
-          <div className="text-xs text-gray-400">High Priority</div>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-amber-900/30 to-orange-900/30 rounded-xl border border-amber-500/30">
+        <div>
+          <h3 className="font-bold text-white flex items-center gap-2">
+            <span>💡</span> Problems to Solve
+          </h3>
+          <p className="text-xs text-gray-400 mt-1">
+            Approve to add to Foundry backlog for next nightly build
+          </p>
         </div>
         <div className="text-center">
-          <div className="text-3xl font-bold text-white">{total_count || 0}</div>
-          <div className="text-xs text-gray-400">Total Scored</div>
+          <div className="text-2xl font-bold text-amber-400">{problems.length}</div>
+          <div className="text-xs text-gray-400">Pending</div>
         </div>
       </div>
 
-      {/* Opportunities */}
+      {message && (
+        <div className="mb-4 p-3 bg-green-500/20 border border-green-500/30 rounded-lg text-green-400 text-sm">
+          {message}
+        </div>
+      )}
+
+      {/* Problems List */}
       <div className="space-y-3">
-        {(top || []).map((opp, idx) => (
-          <a
-            key={idx}
-            href={opp.url || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-4 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-amber-500/50 hover:bg-gray-800 transition cursor-pointer"
+        {problems.map((problem) => (
+          <div
+            key={problem.id}
+            className="p-4 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-amber-500/30 transition"
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-4">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
+                {/* Score and Source */}
+                <div className="flex items-center gap-2 mb-2">
                   <span className={`text-sm font-bold px-2 py-0.5 rounded ${
-                    opp.score >= 85 ? 'bg-amber-500/20 text-amber-400' :
-                    opp.score >= 70 ? 'bg-yellow-500/20 text-yellow-400' :
+                    problem.score >= 70 ? 'bg-amber-500/20 text-amber-400' :
+                    problem.score >= 50 ? 'bg-yellow-500/20 text-yellow-400' :
                     'bg-gray-600/20 text-gray-400'
                   }`}>
-                    {opp.score}
+                    {problem.score}
                   </span>
-                  <span className="text-xs text-gray-500">{opp.source}</span>
+                  <span className="text-xs text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded">
+                    {getSourceLabel(problem.source)}
+                  </span>
                 </div>
-                <h4 className="text-white font-medium mb-2 line-clamp-2">
-                  {opp.title}
+
+                {/* Title */}
+                <h4 className="text-white font-medium mb-2">
+                  {problem.title}
                 </h4>
-                {opp.matches && opp.matches.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
-                    {opp.matches.slice(0, 3).map((match, i) => (
+
+                {/* Body preview */}
+                {problem.body && (
+                  <p className="text-sm text-gray-400 mb-2 line-clamp-2">
+                    {problem.body}
+                  </p>
+                )}
+
+                {/* Signals */}
+                {problem.signals && problem.signals.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {problem.signals.slice(0, 4).map((signal, i) => (
                       <span key={i} className="text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded">
-                        {match}
+                        {signal}
                       </span>
                     ))}
                   </div>
                 )}
+
+                {/* Actions */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleAction(problem, 'approve')}
+                    disabled={actionLoading === problem.id}
+                    className="flex items-center gap-1 px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-medium hover:bg-green-500/30 transition disabled:opacity-50"
+                  >
+                    {actionLoading === problem.id ? '...' : '✓ Add to Backlog'}
+                  </button>
+                  <button
+                    onClick={() => handleAction(problem, 'reject')}
+                    disabled={actionLoading === problem.id}
+                    className="px-3 py-1.5 text-gray-400 hover:text-gray-300 text-sm transition"
+                  >
+                    Skip
+                  </button>
+                  <a
+                    href={problem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto text-xs text-gray-500 hover:text-white transition"
+                  >
+                    View Source →
+                  </a>
+                </div>
               </div>
-              <span className="text-amber-400 hover:text-amber-300 text-lg font-bold">
-                Open →
-              </span>
             </div>
-          </a>
+          </div>
         ))}
       </div>
 
-      {(!top || top.length === 0) && (
-        <div className="text-center py-8 text-gray-500">
-          No opportunities found yet.
+      {problems.length === 0 && (
+        <div className="text-center py-12 text-gray-500">
+          <div className="text-4xl mb-4">🔍</div>
+          <p>No new problems found.</p>
+          <p className="text-sm mt-2">Problem Scout runs every 4 hours.</p>
         </div>
       )}
     </div>
