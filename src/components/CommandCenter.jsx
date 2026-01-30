@@ -255,11 +255,82 @@ function Dashboard({ activeTab, setActiveTab, data, loading, error, onRefresh })
 function DevOpsTab({ data }) {
   if (!data) return <div className="text-gray-500">No DevOps data</div>;
 
-  const { projects, healthy_count, total_count, last_check } = data;
+  const { projects, healthy_count, total_count, last_check, pi } = data;
+
+  // Color helpers for Pi metrics
+  const getTempColor = (temp) => {
+    if (!temp) return 'text-gray-400';
+    if (temp >= 80) return 'text-red-400';
+    if (temp >= 70) return 'text-amber-400';
+    return 'text-green-400';
+  };
+
+  const getUsageColor = (pct) => {
+    if (!pct) return 'text-gray-400';
+    if (pct >= 90) return 'text-red-400';
+    if (pct >= 80) return 'text-amber-400';
+    return 'text-green-400';
+  };
 
   return (
     <div>
-      {/* Summary */}
+      {/* Pi Health Section */}
+      {pi && (
+        <div className="mb-6 p-4 bg-gradient-to-r from-pink-900/30 to-purple-900/30 rounded-xl border border-pink-500/30">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-2xl">🍓</span>
+            <h3 className="font-bold text-white">Raspberry Pi 4B</h3>
+            <span className={`ml-auto text-xs px-2 py-1 rounded ${pi.healthy ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+              {pi.healthy ? 'Healthy' : 'Issues Detected'}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center">
+              <div className={`text-2xl font-bold ${getTempColor(pi.cpu_temp)}`}>
+                {pi.cpu_temp ? `${pi.cpu_temp}°C` : 'N/A'}
+              </div>
+              <div className="text-xs text-gray-400">CPU Temp</div>
+            </div>
+            <div className="text-center">
+              <div className={`text-2xl font-bold ${getUsageColor(pi.cpu_percent)}`}>
+                {pi.cpu_percent != null ? `${pi.cpu_percent}%` : 'N/A'}
+              </div>
+              <div className="text-xs text-gray-400">CPU Usage</div>
+            </div>
+            <div className="text-center">
+              <div className={`text-2xl font-bold ${getUsageColor(pi.memory_percent)}`}>
+                {pi.memory_percent != null ? `${pi.memory_percent}%` : 'N/A'}
+              </div>
+              <div className="text-xs text-gray-400">Memory</div>
+              {pi.memory_used_gb && (
+                <div className="text-xs text-gray-500">{pi.memory_used_gb}/{pi.memory_total_gb} GB</div>
+              )}
+            </div>
+            <div className="text-center">
+              <div className={`text-2xl font-bold ${getUsageColor(pi.disk_percent)}`}>
+                {pi.disk_percent != null ? `${pi.disk_percent}%` : 'N/A'}
+              </div>
+              <div className="text-xs text-gray-400">Disk</div>
+              {pi.disk_used_gb && (
+                <div className="text-xs text-gray-500">{pi.disk_used_gb}/{pi.disk_total_gb} GB</div>
+              )}
+            </div>
+          </div>
+          <div className="mt-4 flex items-center justify-between text-xs text-gray-400">
+            <span>Uptime: {pi.uptime_human || 'N/A'}</span>
+            <span>Load: {pi.load_avg ? pi.load_avg.map(l => l.toFixed(2)).join(' / ') : 'N/A'}</span>
+          </div>
+          {pi.warnings && pi.warnings.length > 0 && (
+            <div className="mt-3 p-2 bg-amber-500/10 rounded border border-amber-500/30">
+              {pi.warnings.map((w, i) => (
+                <div key={i} className="text-xs text-amber-400">{w}</div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Vercel Projects Summary */}
       <div className="flex items-center gap-6 mb-6 p-4 bg-gray-800/50 rounded-xl">
         <div className="text-center">
           <div className="text-3xl font-bold text-green-400">{healthy_count || 0}</div>
@@ -267,7 +338,7 @@ function DevOpsTab({ data }) {
         </div>
         <div className="text-center">
           <div className="text-3xl font-bold text-white">{total_count || 0}</div>
-          <div className="text-xs text-gray-400">Total</div>
+          <div className="text-xs text-gray-400">Projects</div>
         </div>
         {last_check && (
           <div className="ml-auto text-right">
@@ -279,7 +350,7 @@ function DevOpsTab({ data }) {
         )}
       </div>
 
-      {/* Projects */}
+      {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {(projects || []).map((project, idx) => (
           <div

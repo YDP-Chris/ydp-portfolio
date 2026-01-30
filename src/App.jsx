@@ -5,6 +5,7 @@ import ProjectCard from './components/ProjectCard';
 import TechStack from './components/TechStack';
 import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
+import PiStatusBar from './components/PiStatusBar';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
@@ -354,8 +355,8 @@ function App() {
       {/* Contact Section */}
       <ContactForm />
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
+      {/* Footer - extra pb for Pi status bar */}
+      <footer className="bg-gray-900 text-white py-8 pb-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-gray-400">
             © 2026 {companyInfo.name}. Built with precision and purpose.
@@ -368,6 +369,9 @@ function App() {
         isOpen={showCommandCenter}
         onClose={() => setShowCommandCenter(false)}
       />
+
+      {/* Public Pi Status Bar */}
+      <PiStatusBar />
     </div>
   );
 }
