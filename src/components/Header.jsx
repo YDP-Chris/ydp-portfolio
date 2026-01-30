@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, ExternalLink } from 'lucide-react';
 
-function Header() {
+function Header({ onAgentFleetClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId) => {
@@ -28,6 +28,13 @@ function Header() {
               className="text-gray-700 hover:text-primary transition-colors"
             >
               Portfolio
+            </button>
+            <button
+              onClick={onAgentFleetClick}
+              className="text-gray-700 hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              Agent Fleet
             </button>
             <button
               onClick={() => scrollToSection('tech-stack')}
@@ -65,6 +72,13 @@ function Header() {
                 className="text-left text-gray-700 hover:text-primary transition-colors py-2"
               >
                 Portfolio
+              </button>
+              <button
+                onClick={() => { onAgentFleetClick(); setIsMenuOpen(false); }}
+                className="text-left text-gray-700 hover:text-primary transition-colors py-2 flex items-center gap-2"
+              >
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Agent Fleet
               </button>
               <button
                 onClick={() => scrollToSection('tech-stack')}

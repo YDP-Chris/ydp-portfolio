@@ -6,6 +6,7 @@ import TechStack from './components/TechStack';
 import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
+import AgentFleetPage from './components/AgentFleetPage';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
@@ -16,6 +17,7 @@ function App() {
   const [forgeLoading, setForgeLoading] = useState(false);
   const [forgeMessage, setForgeMessage] = useState('');
   const [showCommandCenter, setShowCommandCenter] = useState(false);
+  const [showAgentFleet, setShowAgentFleet] = useState(false);
 
   // Check for pending Forge jobs
   useEffect(() => {
@@ -55,7 +57,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <Header onAgentFleetClick={() => setShowAgentFleet(true)} />
       <Hero />
 
       {/* Projects Section */}
@@ -368,6 +370,12 @@ function App() {
       <CommandCenter
         isOpen={showCommandCenter}
         onClose={() => setShowCommandCenter(false)}
+      />
+
+      {/* Agent Fleet Documentation Page */}
+      <AgentFleetPage
+        isOpen={showAgentFleet}
+        onClose={() => setShowAgentFleet(false)}
       />
 
       {/* Public Pi Status Bar */}
