@@ -22,21 +22,22 @@ function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission - replace with actual form handler
     try {
-      // For now, we'll use a mailto link as a fallback
-      const subject = encodeURIComponent(`Project Inquiry: ${formData.projectType || 'General'}`);
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\nProject Type: ${formData.projectType}\n\nMessage:\n${formData.message}`
-      );
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-      // Open mailto link
-      window.location.href = `mailto:chris@yadkindatapartners.com?subject=${subject}&body=${body}`;
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
 
       setSubmitted(true);
       setFormData({ name: '', email: '', message: '', projectType: '' });
     } catch (error) {
       console.error('Form submission error:', error);
+      alert('Failed to send message. Please try emailing chris@yadkindatapartners.com directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -50,8 +51,8 @@ function ContactForm() {
             <div className="text-green-600 text-6xl mb-4">✓</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Message Sent!</h3>
             <p className="text-gray-600 mb-6">
-              Thanks for reaching out. Your default email client should have opened with your message pre-filled.
-              We'll get back to you as soon as possible.
+              Thanks for reaching out. Your message has been sent successfully.
+              We'll get back to you within 24 hours.
             </p>
             <button
               onClick={() => setSubmitted(false)}
