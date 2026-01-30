@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import ProjectCard from './components/ProjectCard';
 import TechStack from './components/TechStack';
 import ContactForm from './components/ContactForm';
+import CommandCenter from './components/CommandCenter';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
@@ -13,6 +14,7 @@ function App() {
   const [pendingForge, setPendingForge] = useState(null);
   const [forgeLoading, setForgeLoading] = useState(false);
   const [forgeMessage, setForgeMessage] = useState('');
+  const [showCommandCenter, setShowCommandCenter] = useState(false);
 
   // Check for pending Forge jobs
   useEffect(() => {
@@ -191,53 +193,71 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {agents.map((agent) => (
-              <div key={agent.id} className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all hover:transform hover:scale-[1.02]">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{agent.icon}</span>
-                    <div>
-                      <h3 className="font-bold text-white">{agent.name}</h3>
-                      <p className="text-sm text-gray-400">{agent.tagline}</p>
+            {agents.map((agent) => {
+              const isPulse = agent.id === 'ydp-pulse';
+              return (
+                <div
+                  key={agent.id}
+                  onClick={isPulse ? () => setShowCommandCenter(true) : undefined}
+                  className={`bg-gray-800/50 backdrop-blur rounded-xl p-6 border transition-all hover:transform hover:scale-[1.02] ${
+                    isPulse
+                      ? 'border-pink-500/50 hover:border-pink-400 cursor-pointer ring-2 ring-pink-500/20 hover:ring-pink-500/40'
+                      : 'border-gray-700 hover:border-gray-600'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <span className={`text-3xl ${isPulse ? 'animate-pulse' : ''}`}>{agent.icon}</span>
+                      <div>
+                        <h3 className="font-bold text-white">{agent.name}</h3>
+                        <p className="text-sm text-gray-400">{agent.tagline}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {isPulse && (
+                        <span className="text-xs font-medium px-2 py-1 rounded bg-pink-500/20 text-pink-400 border border-pink-500/30">
+                          Click to Open
+                        </span>
+                      )}
+                      <span className={`text-xs font-medium px-2 py-1 rounded ${
+                        agent.status === 'active'
+                          ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                          : 'bg-gray-600/20 text-gray-400'
+                      }`}>
+                        {agent.status === 'active' ? 'Active' : 'Inactive'}
+                      </span>
                     </div>
                   </div>
-                  <span className={`text-xs font-medium px-2 py-1 rounded ${
-                    agent.status === 'active'
-                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                      : 'bg-gray-600/20 text-gray-400'
-                  }`}>
-                    {agent.status === 'active' ? 'Active' : 'Inactive'}
-                  </span>
-                </div>
 
-                <p className="text-gray-300 text-sm mb-4 leading-relaxed">{agent.description}</p>
+                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">{agent.description}</p>
 
-                <div className="mb-4">
-                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Capabilities</div>
-                  <div className="flex flex-wrap gap-1">
-                    {agent.capabilities.slice(0, 3).map((cap, idx) => (
-                      <span key={idx} className="text-xs bg-gray-700/50 text-gray-300 px-2 py-1 rounded">
-                        {cap}
-                      </span>
-                    ))}
-                    {agent.capabilities.length > 3 && (
-                      <span className="text-xs bg-gray-700/50 text-gray-400 px-2 py-1 rounded">
-                        +{agent.capabilities.length - 3} more
-                      </span>
-                    )}
+                  <div className="mb-4">
+                    <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Capabilities</div>
+                    <div className="flex flex-wrap gap-1">
+                      {agent.capabilities.slice(0, 3).map((cap, idx) => (
+                        <span key={idx} className="text-xs bg-gray-700/50 text-gray-300 px-2 py-1 rounded">
+                          {cap}
+                        </span>
+                      ))}
+                      {agent.capabilities.length > 3 && (
+                        <span className="text-xs bg-gray-700/50 text-gray-400 px-2 py-1 rounded">
+                          +{agent.capabilities.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-700 flex items-center justify-between">
+                    <div className="text-xs text-gray-500">
+                      <span className="text-gray-400">{agent.schedule}</span>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {agent.poweredBy}
+                    </div>
                   </div>
                 </div>
-
-                <div className="pt-4 border-t border-gray-700 flex items-center justify-between">
-                  <div className="text-xs text-gray-500">
-                    <span className="text-gray-400">{agent.schedule}</span>
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {agent.poweredBy}
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-12 text-center">
@@ -342,6 +362,12 @@ function App() {
           </p>
         </div>
       </footer>
+
+      {/* Command Center Modal */}
+      <CommandCenter
+        isOpen={showCommandCenter}
+        onClose={() => setShowCommandCenter(false)}
+      />
     </div>
   );
 }
