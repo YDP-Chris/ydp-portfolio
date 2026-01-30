@@ -101,7 +101,7 @@ export const agentBuilds = [
     category: 'Creator & Mentorship',
     techStack: ['React', 'Tailwind CSS', 'EmailJS', 'date-fns'],
     status: 'Live',
-    url: 'https://foundry-office-hours.vercel.app',
+    url: 'https://founder-office-hours-git-main-ydp.vercel.app',
     builtBy: 'Foundry',
     builtOn: '2026-01-30',
     image: '🕐'
