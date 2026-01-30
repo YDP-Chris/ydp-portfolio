@@ -6,7 +6,6 @@ import TechStack from './components/TechStack';
 import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
-import AgentFleetPage from './components/AgentFleetPage';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
@@ -17,7 +16,6 @@ function App() {
   const [forgeLoading, setForgeLoading] = useState(false);
   const [forgeMessage, setForgeMessage] = useState('');
   const [showCommandCenter, setShowCommandCenter] = useState(false);
-  const [showAgentFleet, setShowAgentFleet] = useState(false);
 
   // Check for pending Forge jobs
   useEffect(() => {
@@ -57,7 +55,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header onAgentFleetClick={() => setShowAgentFleet(true)} />
+      <Header />
       <Hero />
 
       {/* Projects Section */}
@@ -190,8 +188,41 @@ function App() {
             </div>
             <h2 className="text-3xl font-bold mb-4">Agent Fleet</h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              A network of AI agents working 24/7 to build products, monitor competitors,
-              track opportunities, and keep infrastructure healthy.
+              A network of AI agents running 24/7 on a Raspberry Pi, autonomously finding problems,
+              building solutions, and monitoring everything.
+            </p>
+          </div>
+
+          {/* How It Works - Pipeline */}
+          <div className="bg-gray-800/50 rounded-2xl border border-gray-700 p-6 mb-12">
+            <h3 className="text-lg font-bold text-center mb-6 text-gray-300">How It Works</h3>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+              <div className="flex flex-col items-center p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">🔍</span>
+                <span className="text-amber-400 font-medium text-sm">Problem Scout</span>
+                <span className="text-[10px] text-gray-500">finds problems</span>
+              </div>
+              <div className="text-gray-600 text-xl md:rotate-0 rotate-90">→</div>
+              <div className="flex flex-col items-center p-3 bg-pink-500/10 border border-pink-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">💓</span>
+                <span className="text-pink-400 font-medium text-sm">YDP Pulse</span>
+                <span className="text-[10px] text-gray-500">you approve</span>
+              </div>
+              <div className="text-gray-600 text-xl md:rotate-0 rotate-90">→</div>
+              <div className="flex flex-col items-center p-3 bg-purple-500/10 border border-purple-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">🏭</span>
+                <span className="text-purple-400 font-medium text-sm">Foundry</span>
+                <span className="text-[10px] text-gray-500">builds overnight</span>
+              </div>
+              <div className="text-gray-600 text-xl md:rotate-0 rotate-90">→</div>
+              <div className="flex flex-col items-center p-3 bg-orange-500/10 border border-orange-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">🔥</span>
+                <span className="text-orange-400 font-medium text-sm">Forge</span>
+                <span className="text-[10px] text-gray-500">productizes</span>
+              </div>
+            </div>
+            <p className="text-center text-gray-500 text-sm mt-6">
+              Supporting agents monitor competitors, track system health, and surface intelligence.
             </p>
           </div>
 
@@ -278,6 +309,38 @@ function App() {
               <div className="text-left">
                 <div className="text-2xl font-bold text-white">1/night</div>
                 <div className="text-xs text-gray-400">Products Built</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Infrastructure */}
+          <div className="mt-12 pt-12 border-t border-gray-700">
+            <h3 className="text-lg font-bold text-center mb-8 text-gray-300">Infrastructure</h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🍓</div>
+                <div className="font-medium text-white text-sm">Raspberry Pi 4B</div>
+                <div className="text-xs text-gray-500">8GB • Always on</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-2">☁️</div>
+                <div className="font-medium text-white text-sm">Cloudflare</div>
+                <div className="text-xs text-gray-500">Tunnels & DNS</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-2">▲</div>
+                <div className="font-medium text-white text-sm">Vercel</div>
+                <div className="text-xs text-gray-500">Hosting & CI/CD</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-2">⚡</div>
+                <div className="font-medium text-white text-sm">Supabase</div>
+                <div className="text-xs text-gray-500">Database & Auth</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-2">🤖</div>
+                <div className="font-medium text-white text-sm">Claude</div>
+                <div className="text-xs text-gray-500">AI analysis & builds</div>
               </div>
             </div>
           </div>
@@ -370,12 +433,6 @@ function App() {
       <CommandCenter
         isOpen={showCommandCenter}
         onClose={() => setShowCommandCenter(false)}
-      />
-
-      {/* Agent Fleet Documentation Page */}
-      <AgentFleetPage
-        isOpen={showAgentFleet}
-        onClose={() => setShowAgentFleet(false)}
       />
 
       {/* Public Pi Status Bar */}
