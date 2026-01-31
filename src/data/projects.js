@@ -105,6 +105,18 @@ export const agentBuilds = [
     builtBy: 'Foundry',
     builtOn: '2026-01-30',
     image: '🕐'
+  },
+  {
+    id: 'waiting-room-companion',
+    title: 'Waiting Room Companion',
+    description: 'Never forget another question at the doctor. Transform appointment anxiety into confidence with smart question preparation, structured note-taking, and professional visit summaries. Privacy-first healthcare tool.',
+    category: 'Healthcare & Wellness',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'jsPDF'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-01-31',
+    image: '🏥'
   }
 ];
 
