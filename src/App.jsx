@@ -6,6 +6,7 @@ import TechStack from './components/TechStack';
 import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
+import AnnActivity from './components/AnnActivity';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
@@ -224,6 +225,16 @@ function App() {
             <p className="text-center text-gray-500 text-sm mt-6">
               Supporting agents monitor competitors, track system health, and surface intelligence.
             </p>
+          </div>
+
+          {/* Ann Activity Feed */}
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-xl">🎵</span>
+              <h3 className="text-lg font-bold text-gray-300">Live from Moltbook</h3>
+              <span className="text-xs text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full">Social Agent</span>
+            </div>
+            <AnnActivity />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
