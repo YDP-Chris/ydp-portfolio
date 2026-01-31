@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Pulse API URL - reuse the Forge webhook URL
-const PULSE_API_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://web-notification-intimate-carlo.trycloudflare.com';
+const PULSE_API_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://api.yadkindatapartners.com';
 
 function CommandCenter({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const PI_API_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://web-notification-intimate-carlo.trycloudflare.com';
+const PI_API_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://api.yadkindatapartners.com';
 
 function PiStatusBar() {
   const [piData, setPiData] = useState(null);

@@ -10,7 +10,7 @@ import AnnActivity from './components/AnnActivity';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
-const FORGE_WEBHOOK_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://web-notification-intimate-carlo.trycloudflare.com';
+const FORGE_WEBHOOK_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://api.yadkindatapartners.com';
 
 function App() {
   const [pendingForge, setPendingForge] = useState(null);
