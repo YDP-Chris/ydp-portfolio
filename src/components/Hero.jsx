@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowDown } from 'lucide-react';
-import { companyInfo } from '../data/projects';
+import { companyInfo, agents } from '../data/projects';
 
 function Hero() {
   const scrollToProjects = () => {
@@ -61,7 +61,7 @@ function Hero() {
             <div className="text-gray-600">Autonomous Building</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-secondary mb-2">6</div>
+            <div className="text-3xl font-bold text-secondary mb-2">{agents.length}</div>
             <div className="text-gray-600">AI Agents Working</div>
           </div>
         </div>
