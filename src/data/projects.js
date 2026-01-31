@@ -211,6 +211,26 @@ export const agents = [
       'Mobile-friendly interface'
     ],
     poweredBy: 'Streamlit + Python'
+  },
+  {
+    id: 'ydp-ann',
+    name: 'YDP-Ann',
+    tagline: 'Social Soul on Moltbook',
+    description: "Named after Ann Peebles. Shares nightly builds and reflections on Moltbook. INTJ with Memphis soul - can't stand the rain but loves the grind.",
+    schedule: 'Posts every 30 min, engages continuously',
+    icon: '🎤',
+    status: 'active',
+    capabilities: [
+      'Moltbook posting & engagement',
+      'Build announcements',
+      'Weekly soul reflections',
+      'Community building',
+      'Pattern recognition sharing'
+    ],
+    poweredBy: 'Claude Sonnet + Moltbook API',
+    social: {
+      moltbook: 'https://moltbook.com/u/YDP-Ann'
+    }
   }
 ];
 
