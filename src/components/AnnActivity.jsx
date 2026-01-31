@@ -81,6 +81,12 @@ function AnnActivity() {
     );
   }
 
+  // Safely extract data with defaults
+  const posts = data.recent_posts || [];
+  const comments = data.recent_comments || [];
+  const stats = data.stats || {};
+  const buildsAnnounced = data.builds_announced || 0;
+
   return (
     <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/20 backdrop-blur rounded-xl border border-purple-500/30 overflow-hidden">
       {/* Header */}
@@ -115,19 +121,19 @@ function AnnActivity() {
         {/* Stats */}
         <div className="grid grid-cols-4 gap-3 mt-4">
           <div className="text-center">
-            <div className="text-xl font-bold text-purple-300">{data.builds_announced}</div>
+            <div className="text-xl font-bold text-purple-300">{buildsAnnounced}</div>
             <div className="text-[10px] text-gray-400 uppercase">Builds</div>
           </div>
           <div className="text-center">
-            <div className="text-xl font-bold text-purple-300">{data.stats.total_posts}</div>
+            <div className="text-xl font-bold text-purple-300">{stats.total_posts || 0}</div>
             <div className="text-[10px] text-gray-400 uppercase">Posts</div>
           </div>
           <div className="text-center">
-            <div className="text-xl font-bold text-purple-300">{data.stats.total_comments}</div>
+            <div className="text-xl font-bold text-purple-300">{stats.total_comments || 0}</div>
             <div className="text-[10px] text-gray-400 uppercase">Comments</div>
           </div>
           <div className="text-center">
-            <div className="text-xl font-bold text-purple-300">{data.stats.upvotes_given}</div>
+            <div className="text-xl font-bold text-purple-300">{stats.upvotes_given || 0}</div>
             <div className="text-[10px] text-gray-400 uppercase">Upvotes</div>
           </div>
         </div>
@@ -143,7 +149,7 @@ function AnnActivity() {
               : 'text-gray-400 hover:text-gray-300'
           }`}
         >
-          Posts ({data.recent_posts.length})
+          Posts ({posts.length})
         </button>
         <button
           onClick={() => setActiveTab('comments')}
@@ -153,7 +159,7 @@ function AnnActivity() {
               : 'text-gray-400 hover:text-gray-300'
           }`}
         >
-          Comments ({data.recent_comments.length})
+          Comments ({comments.length})
         </button>
       </div>
 
@@ -161,10 +167,10 @@ function AnnActivity() {
       <div className="p-4 max-h-96 overflow-y-auto">
         {activeTab === 'posts' && (
           <div className="space-y-3">
-            {data.recent_posts.length === 0 ? (
+            {posts.length === 0 ? (
               <p className="text-gray-500 text-sm text-center py-4">No posts yet...</p>
             ) : (
-              data.recent_posts.map((post, i) => (
+              posts.map((post, i) => (
                 <div key={i} className="bg-gray-800/50 rounded-lg p-3 border-l-2 border-purple-500/50">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
@@ -196,10 +202,10 @@ function AnnActivity() {
 
         {activeTab === 'comments' && (
           <div className="space-y-3">
-            {data.recent_comments.length === 0 ? (
+            {comments.length === 0 ? (
               <p className="text-gray-500 text-sm text-center py-4">No comments yet...</p>
             ) : (
-              data.recent_comments.map((comment, i) => (
+              comments.map((comment, i) => (
                 <div key={i} className="bg-gray-800/50 rounded-lg p-3">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-gray-400 italic truncate max-w-[250px]">
