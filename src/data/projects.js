@@ -119,6 +119,18 @@ export const agentBuilds = [
     image: '🏥'
   },
   {
+    id: 'data-roi-calculator',
+    title: 'DataROI Calculator',
+    description: 'Professional ROI analysis for data investments. Industry-specific calculations with real multipliers, five core metrics, and executive-ready PDF reports. No signup required.',
+    category: 'Business & Analytics',
+    techStack: ['HTML', 'JavaScript', 'Chart.js', 'jsPDF'],
+    status: 'Live',
+    url: 'https://data-roi-calculator.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-01-31',
+    image: '📊'
+  },
+  {
     id: 'ccw',
     title: 'CCW: Carnage Championship Wrestling',
     description: 'Browser-based 2D arcade wrestling game celebrating hardcore/deathmatch wrestling in the style of ECW. Features grapples, weapons (chairs, flaming tables), career mode, AI opponents, and full mobile touch controls.',
@@ -266,6 +278,7 @@ export const projectHealth = {
   'fret-unlock': { monitoredBy: ['devops-monitor'], status: 'healthy' },
   'fretflow': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', status: 'healthy' },
   'ydp-portfolio': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', productizedBy: 'forge', status: 'healthy' },
+  'data-roi-calculator': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', productizedBy: 'forge', status: 'healthy' },
   'ccw': { monitoredBy: ['devops-monitor'], builtBy: 'claude-code', status: 'healthy' }
 };
 

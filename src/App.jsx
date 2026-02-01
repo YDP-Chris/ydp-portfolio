@@ -134,7 +134,11 @@ function App() {
                 <div key={build.id} className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <span className="text-3xl">{build.image}</span>
+                      {build.image?.startsWith('/') || build.image?.startsWith('http') ? (
+                        <img src={build.image} alt={build.title} className="w-10 h-10 object-contain rounded" />
+                      ) : (
+                        <span className="text-3xl">{build.image}</span>
+                      )}
                       <div>
                         <h3 className="font-bold text-gray-900">{build.title}</h3>
                         <p className="text-sm text-gray-500">{build.category}</p>
