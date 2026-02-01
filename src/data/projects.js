@@ -113,10 +113,10 @@ export const agentBuilds = [
     category: 'Healthcare & Wellness',
     techStack: ['React', 'Vite', 'Tailwind CSS', 'jsPDF'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://waiting-room-companion.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-01-31',
-    image: '🏥'
+    image: '/images/waiting-room-icon.svg'
   },
   {
     id: 'data-roi-calculator',
