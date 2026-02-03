@@ -153,6 +153,18 @@ export const agentBuilds = [
     builtBy: 'Foundry',
     builtOn: '2026-02-02',
     image: '📊'
+  },
+  {
+    id: 'rss-redirect-resolver',
+    title: 'RSS Redirect Resolver',
+    description: 'Stop wrestling with RSS redirect URLs. Instantly decode Google News RSS feeds and resolve redirect URLs to their original sources. Perfect for automation workflows and data scraping.',
+    category: 'Developer Tools & Automation',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Vercel Serverless Functions', 'RSS-Parser'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-03',
+    image: '🔗'
   }
 ];
 
@@ -292,7 +304,8 @@ export const projectHealth = {
   'ydp-portfolio': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', productizedBy: 'forge', status: 'healthy' },
   'data-roi-calculator': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', productizedBy: 'forge', status: 'healthy' },
   'ccw': { monitoredBy: ['devops-monitor'], builtBy: 'claude-code', status: 'healthy' },
-  'd365-batch-monitor': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', status: 'healthy' }
+  'd365-batch-monitor': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', status: 'healthy' },
+  'rss-redirect-resolver': { monitoredBy: ['devops-monitor'], builtBy: 'foundry', productizedBy: 'forge', status: 'healthy' }
 };
 
 export const companyInfo = {
