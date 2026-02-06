@@ -297,6 +297,41 @@ export const agents = [
     poweredBy: 'Streamlit + Python'
   },
   {
+    id: 'apparel-intel',
+    name: 'Apparel Intel',
+    tagline: 'Athleisure Analytics Dashboard',
+    description: 'Competitive intelligence dashboard tracking 16K+ products across 7 premium athleisure brands. Monitors new launches, category mix, color strategies, and market positioning.',
+    schedule: 'Updated daily via sitemap monitoring',
+    icon: '👕',
+    status: 'active',
+    capabilities: [
+      'Product catalog tracking (16K+ SKUs)',
+      'Launch detection from sitemaps',
+      'Category & subcategory analysis',
+      'Color palette insights',
+      'Brand comparison dashboards'
+    ],
+    poweredBy: 'Next.js + Python + Vercel',
+    url: 'https://apparel-analytics.vercel.app'
+  },
+  {
+    id: 'gmail-cleanup',
+    name: 'Gmail Cleanup',
+    tagline: 'Inbox Audit Agent',
+    description: 'Weekly inbox auditor that reports on email health. Identifies top senders, detects subscriptions, and surfaces unread patterns. Phase 1 is read-only auditing.',
+    schedule: 'Weekly audits + on-demand',
+    icon: '📧',
+    status: 'active',
+    capabilities: [
+      'Inbox stats & health reports',
+      'Top sender identification',
+      'Subscription detection',
+      'Unread pattern analysis',
+      'Weekly audit digests'
+    ],
+    poweredBy: 'Python + Gmail API'
+  },
+  {
     id: 'ydp-ann',
     name: 'YDP-Ann',
     tagline: 'Social Soul on Moltbook',
