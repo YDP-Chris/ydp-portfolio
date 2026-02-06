@@ -165,6 +165,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-03',
     image: '🔗'
+  },
+  {
+    id: 'vetbot',
+    title: 'VetBot',
+    description: 'Stop AI tools from breaking in production. Systematic validation framework with quantitative scoring, failure pattern detection, and professional reports. Get 0-100 readiness scores in 15-30 minutes.',
+    category: 'Developer Tools & Automation',
+    techStack: ['React', 'TypeScript', 'Zustand', 'Tailwind CSS', 'Vite'],
+    status: 'Live',
+    url: 'https://vetbot-ai-tool-vetting.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-05',
+    image: '🤖'
   }
 ];
 
