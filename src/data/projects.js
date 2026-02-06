@@ -161,10 +161,22 @@ export const agentBuilds = [
     category: 'Developer Tools & Automation',
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Vercel Serverless Functions', 'RSS-Parser'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://foundry-rss-redirect-resolver.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-03',
     image: '🔗'
+  },
+  {
+    id: 'resonance-sinus-timer',
+    title: 'Resonance - Sinus Relief Timer',
+    description: 'Science-backed sinus relief through guided humming therapy. Precise 130Hz tone generation based on clinical research, with dual protocols (5min Quick, 60min Intensive), session tracking, and streak motivation.',
+    category: 'Healthcare & Wellness',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Web Audio API'],
+    status: 'Live',
+    url: 'https://foundry-resonance-sinus-timer.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-04',
+    image: '🎵'
   },
   {
     id: 'vetbot',
@@ -173,7 +185,7 @@ export const agentBuilds = [
     category: 'Developer Tools & Automation',
     techStack: ['React', 'TypeScript', 'Zustand', 'Tailwind CSS', 'Vite'],
     status: 'Live',
-    url: 'https://vetbot-ai-tool-vetting.vercel.app',
+    url: 'https://foundry-vetbot.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-05',
     image: '🤖'
