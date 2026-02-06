@@ -143,6 +143,18 @@ export const agentBuilds = [
     image: '/images/ccw-logo.webp'
   },
   {
+    id: 'route-clear',
+    title: 'Route Clear',
+    description: 'IED detection game honoring Husky VMMD operators. Navigate routes and identify threats in this tribute to the soldiers who keep convoys safe.',
+    category: 'Gaming & Entertainment',
+    techStack: ['JavaScript', 'Vite', 'Canvas'],
+    status: 'Live',
+    url: 'https://route-clear.vercel.app',
+    builtBy: 'Claude Code',
+    builtOn: '2026-02-01',
+    image: '🎖️'
+  },
+  {
     id: 'd365-batch-monitor',
     title: 'D365 Batch Job Monitor',
     description: 'Real-time monitoring dashboard for critical D365 batch jobs. Color-coded status indicators, actual OData API integration, and mobile-responsive design for D365 administrators.',
