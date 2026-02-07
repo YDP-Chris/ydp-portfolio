@@ -201,6 +201,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-05',
     image: '🤖'
+  },
+  {
+    id: 'portfolio-pulse',
+    title: 'PortfolioPulse',
+    description: 'Finally understand WHY your portfolio moved today. Get AI-powered explanations that connect stock movements to real events, earnings, and market shifts—not just confusing numbers.',
+    category: 'Fintech & Analytics',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Alpha Vantage API', 'NewsAPI', 'Claude AI'],
+    status: 'Live',
+    url: 'https://portfolio-movement-explainer.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-06',
+    image: '📊'
   }
 ];
 
