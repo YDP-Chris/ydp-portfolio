@@ -244,14 +244,27 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {agents.map((agent) => {
               const isPulse = agent.id === 'ydp-pulse';
+              const hasExternalUrl = !isPulse && agent.url;
+              const isInteractive = isPulse || hasExternalUrl;
+
+              const handleClick = () => {
+                if (isPulse) {
+                  setShowCommandCenter(true);
+                } else if (hasExternalUrl) {
+                  window.open(agent.url, '_blank', 'noopener,noreferrer');
+                }
+              };
+
               return (
                 <div
                   key={agent.id}
-                  onClick={isPulse ? () => setShowCommandCenter(true) : undefined}
+                  onClick={isInteractive ? handleClick : undefined}
                   className={`bg-gray-800/50 backdrop-blur rounded-xl p-6 border transition-all hover:transform hover:scale-[1.02] ${
                     isPulse
                       ? 'border-pink-500/50 hover:border-pink-400 cursor-pointer ring-2 ring-pink-500/20 hover:ring-pink-500/40'
-                      : 'border-gray-700 hover:border-gray-600'
+                      : hasExternalUrl
+                        ? 'border-blue-500/40 hover:border-blue-400 cursor-pointer ring-1 ring-blue-500/20 hover:ring-blue-500/40'
+                        : 'border-gray-700 hover:border-gray-600'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -266,6 +279,11 @@ function App() {
                       {isPulse && (
                         <span className="text-xs font-medium px-2 py-1 rounded bg-pink-500/20 text-pink-400 border border-pink-500/30">
                           Click to Open
+                        </span>
+                      )}
+                      {hasExternalUrl && (
+                        <span className="text-xs font-medium px-2 py-1 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                          View Live
                         </span>
                       )}
                       <span className={`text-xs font-medium px-2 py-1 rounded ${
@@ -317,13 +335,18 @@ function App() {
               </div>
               <div className="w-px h-10 bg-gray-700"></div>
               <div className="text-left">
-                <div className="text-2xl font-bold text-white">24/7</div>
-                <div className="text-xs text-gray-400">Monitoring</div>
+                <div className="text-2xl font-bold text-white">{agentBuilds.length}</div>
+                <div className="text-xs text-gray-400">Products Shipped</div>
               </div>
               <div className="w-px h-10 bg-gray-700"></div>
               <div className="text-left">
-                <div className="text-2xl font-bold text-white">1/night</div>
-                <div className="text-xs text-gray-400">Products Built</div>
+                <div className="text-2xl font-bold text-white">18K+</div>
+                <div className="text-xs text-gray-400">Products Tracked</div>
+              </div>
+              <div className="w-px h-10 bg-gray-700"></div>
+              <div className="text-left">
+                <div className="text-2xl font-bold text-white">24/7</div>
+                <div className="text-xs text-gray-400">Monitoring</div>
               </div>
             </div>
           </div>

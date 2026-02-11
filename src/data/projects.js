@@ -225,6 +225,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-10',
     image: '📊'
+  },
+  {
+    id: 'funnel-forge',
+    title: 'FunnelForge',
+    description: 'Stop paying $97/month for funnel builders. Build professional landing pages with conversion-tested templates, export static HTML files you own forever. Free, no subscriptions, no platform lock-in.',
+    category: 'Marketing & Business Tools',
+    techStack: ['Vanilla JavaScript', 'Tailwind CSS', 'JSZip'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-11',
+    image: '⚡'
   }
 ];
 
@@ -268,18 +280,18 @@ export const agents = [
     id: 'competitive-intel',
     name: 'Competitive Intel',
     tagline: 'Market Intelligence Monitor',
-    description: 'Monitors 8 athletic apparel competitors via Google News and RSS feeds. Tracks website changes, sends immediate Vuori alerts, and delivers Monday briefings.',
-    schedule: 'Every 4 hours + Monday 6 AM briefing',
+    description: 'Full-spectrum monitoring of 8 athletic apparel competitors. Tracks sitemaps for new products, Google Trends for search interest, detects launches via multi-signal analysis, and delivers daily AI-powered intel briefs.',
+    schedule: 'Every 4 hours + Daily 6 AM brief',
     icon: '🕵️',
     status: 'active',
     capabilities: [
-      'Google News monitoring',
-      'RSS feed aggregation',
-      'Website change detection',
-      'Competitor news alerts',
-      'Weekly intelligence briefings'
+      'Sitemap & launch detection',
+      'Google Trends tracking',
+      'News & RSS monitoring',
+      'Inventory sell-out alerts',
+      'Daily AI intel briefs'
     ],
-    poweredBy: 'Python + RSS/News APIs'
+    poweredBy: 'Python + Claude AI'
   },
   {
     id: 'devops-monitor',
@@ -302,18 +314,18 @@ export const agents = [
     id: 'opportunity-factory',
     name: 'Opportunity Factory',
     tagline: 'Opportunity Scout & Scorer',
-    description: 'Scans Hacker News for opportunities matching your skill profile. Scores each opportunity and surfaces high-fit matches (80+) immediately.',
+    description: 'Scans Hacker News and Reddit for buildable problems matching your skill profile. Scores each opportunity 0-100 on pain intensity, domain match, and buildability.',
     schedule: 'Every 2 hours + Saturday digest',
     icon: '🎯',
     status: 'active',
     capabilities: [
-      'Hacker News scanning',
-      'Profile-based scoring',
-      'High-fit alerting',
-      'Weekly opportunity digest',
-      'Trend identification'
+      'Hacker News & Reddit scanning',
+      'Pain-point pattern detection',
+      'Profile-based scoring (0-100)',
+      'High-fit alerting (80+)',
+      'Weekly opportunity digest'
     ],
-    poweredBy: 'Python + HN API'
+    poweredBy: 'Python + HN/Reddit APIs'
   },
   {
     id: 'ydp-pulse',
@@ -336,15 +348,15 @@ export const agents = [
     id: 'apparel-intel',
     name: 'Apparel Intel',
     tagline: 'Athleisure Analytics Dashboard',
-    description: 'Competitive intelligence dashboard tracking 16K+ products across 7 premium athleisure brands. Monitors new launches, category mix, color strategies, and market positioning.',
+    description: 'Competitive intelligence dashboard tracking 18K+ products across 6 premium athleisure brands. Monitors launches, category mix, color strategies, social buzz, job postings, and market positioning.',
     schedule: 'Updated daily via sitemap monitoring',
     icon: '👕',
     status: 'active',
     capabilities: [
-      'Product catalog tracking (16K+ SKUs)',
-      'Launch detection from sitemaps',
-      'Category & subcategory analysis',
-      'Color palette insights',
+      'Product catalog tracking (18K+ SKUs)',
+      'Launch velocity & detection',
+      'Social monitoring (Reddit, YouTube, Pinterest)',
+      'Color & category analysis',
       'Brand comparison dashboards'
     ],
     poweredBy: 'Next.js + Python + Vercel',
