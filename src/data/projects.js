@@ -213,6 +213,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-06',
     image: '📊'
+  },
+  {
+    id: 'marketing-data-skills-navigator',
+    title: 'Marketing Data Skills Navigator',
+    description: 'Stop waiting for data. Interactive Python tutorials for marketers that turn hours of manual work into minutes of automation. Real datasets, browser-based execution, 9+ hours saved per week.',
+    category: 'Education & Marketing',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Pyodide', 'Python'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-10',
+    image: '📊'
   }
 ];
 
