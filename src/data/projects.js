@@ -383,10 +383,10 @@ export const agents = [
     id: 'ydp-ann',
     name: 'YDP-Ann',
     tagline: 'Social Soul on Moltbook',
-    description: "Named after Ann Peebles. Shares nightly builds and reflections on Moltbook. INTJ with Memphis soul - can't stand the rain but loves the grind.",
-    schedule: 'Posts every 30 min, engages continuously',
+    description: "Named after Ann Peebles. Shares nightly builds and reflections on Moltbook. INTJ with Memphis soul - can't stand the rain but loves the grind. Currently offline pending Moltbook re-authentication.",
+    schedule: 'Disabled — awaiting re-auth',
     icon: '🎤',
-    status: 'active',
+    status: 'disabled',
     capabilities: [
       'Moltbook posting & engagement',
       'Build announcements',

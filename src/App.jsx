@@ -231,14 +231,18 @@ function App() {
             </p>
           </div>
 
-          {/* Ann Activity Feed */}
+          {/* Ann Activity Feed — disabled while awaiting Moltbook re-auth */}
           <div className="mb-12">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xl">🎵</span>
               <h3 className="text-lg font-bold text-gray-300">Live from Moltbook</h3>
-              <span className="text-xs text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full">Social Agent</span>
+              <span className="text-xs text-yellow-400 bg-yellow-500/20 px-2 py-0.5 rounded-full">Offline</span>
             </div>
-            <AnnActivity />
+            <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-yellow-500/20 text-center">
+              <p className="text-gray-400 text-sm">
+                YDP-Ann is currently offline pending Moltbook re-authentication. She&apos;ll be back with more Memphis soul soon.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -289,9 +293,11 @@ function App() {
                       <span className={`text-xs font-medium px-2 py-1 rounded ${
                         agent.status === 'active'
                           ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                          : agent.status === 'disabled'
+                          ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
                           : 'bg-gray-600/20 text-gray-400'
                       }`}>
-                        {agent.status === 'active' ? 'Active' : 'Inactive'}
+                        {agent.status === 'active' ? 'Active' : agent.status === 'disabled' ? 'Disabled' : 'Inactive'}
                       </span>
                     </div>
                   </div>
