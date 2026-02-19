@@ -237,6 +237,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-11',
     image: '⚡'
+  },
+  {
+    id: 'brand-pulse-tracker',
+    title: 'Brand Pulse Tracker',
+    description: 'Never miss a competitor move again. Real-time competitive intelligence dashboard that alerts you the moment competitors change prices, launch products, or update websites. React faster than everyone else.',
+    category: 'Business Intelligence & Analytics',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Vercel Serverless Functions'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-19',
+    image: '🚨'
   }
 ];
 
