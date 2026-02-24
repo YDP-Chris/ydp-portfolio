@@ -249,6 +249,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-19',
     image: '🚨'
+  },
+  {
+    id: 'boutique-pulse',
+    title: 'Boutique Pulse',
+    description: 'Enterprise insights for indie retailers. Stop guessing about inventory decisions - get the same retail analytics that power billion-dollar fashion chains, designed specifically for independent boutique owners.',
+    category: 'Retail Analytics & Business Intelligence',
+    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-23',
+    image: '📊'
   }
 ];
 
