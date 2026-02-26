@@ -261,6 +261,18 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-23',
     image: '📊'
+  },
+  {
+    id: 'pm-archetype-generator',
+    title: 'PM Archetype Generator',
+    description: 'Discover your corporate Product Manager persona in 2 minutes. From The OKR Oracle to The User Story Whisperer - find your PM archetype in this fun, shareable quiz built by PMs, for PMs. Perfect for team retrospectives and workplace sharing.',
+    category: 'Productivity & Team Building',
+    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-02-26',
+    image: '🎯'
   }
 ];
 
