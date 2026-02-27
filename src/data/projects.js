@@ -273,6 +273,114 @@ export const agentBuilds = [
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-26',
     image: '🎯'
+  },
+  {
+    id: 'networth-zen',
+    title: 'NetWorth Zen',
+    description: 'Privacy-first net worth tracker with no bank linking or accounts. Manual entry for assets and liabilities, real-time calculations, trend visualization, and data export. All data stays in your browser.',
+    category: 'Fintech & Personal Finance',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'localStorage'],
+    status: 'Live',
+    url: 'https://networth-zen.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-07',
+    image: '💰'
+  },
+  {
+    id: 'bi-ai-helper',
+    title: 'BI AI Helper',
+    description: 'AI-powered toolkit for BI practitioners with three specialized tools: Schema Explorer for dataset orientation, Logic Checker for analysis validation, and Note Formatter for professional presentations.',
+    category: 'Business Intelligence & Analytics',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Claude API'],
+    status: 'Live',
+    url: 'https://bi-ai-helper.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-09',
+    image: '🧠'
+  },
+  {
+    id: 'local-screen-recorder',
+    title: 'Local Screen Recorder',
+    description: 'Privacy-first browser-based screen recorder that eliminates Loom\'s 5-minute free tier limit. Unlimited recording, pause/resume, local downloads, and zero cloud storage. Your recordings never leave your machine.',
+    category: 'Developer Tools & Productivity',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'MediaRecorder API'],
+    status: 'Live',
+    url: 'https://local-screen-recorder-ydp.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-17',
+    image: '🎥'
+  },
+  {
+    id: 'metriczen',
+    title: 'MetricZen',
+    description: 'Lightning-fast marketing dashboard that eliminates the 10+ minute daily tab-switching routine. Key metrics from Google Analytics, Search Console, Google Ads, and Instagram in one clean, mobile-first view.',
+    category: 'Marketing & Analytics',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'OAuth 2.0'],
+    status: 'Live',
+    url: 'https://metriczen.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-18',
+    image: '📈'
+  },
+  {
+    id: 'datapath-navigator',
+    title: 'DataPath Navigator',
+    description: 'Find your ideal data analytics learning path in 2 minutes. Interactive assessment with 4 curated paths, progress tracking, and real resource links for aspiring data analysts starting from scratch.',
+    category: 'Education & Career',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'localStorage'],
+    status: 'Live',
+    url: 'https://datapath-navigator.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-20',
+    image: '🧭'
+  },
+  {
+    id: 'datastandards-toolkit',
+    title: 'DataStandards Toolkit',
+    description: 'Stop the chaos on your data team. Code formatting, project templates, review checklists, and documentation generation for data analyst teams that lack software engineering standards.',
+    category: 'Developer Tools & Data Engineering',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS'],
+    status: 'Live',
+    url: 'https://datastandards-toolkit.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-21',
+    image: '📋'
+  },
+  {
+    id: 'github-pr-digest',
+    title: 'GitHub PR Digest',
+    description: 'Instantly understand any GitHub PR. Paste a public PR URL and get a plain English summary of what changed, why it matters, potential impact, and key files to review. Built for faster code reviews.',
+    category: 'Developer Tools & Automation',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'GitHub API', 'Claude API'],
+    status: 'Live',
+    url: 'https://github-pr-digest.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-22',
+    image: '🔍'
+  },
+  {
+    id: 'scrapefix',
+    title: 'ScrapeFix',
+    description: 'AI-powered web scraper that adapts when websites change structure. Demonstrates how traditional CSS scrapers break, then uses AI semantic understanding as automatic fallback. Built for competitive intelligence workflows.',
+    category: 'Developer Tools & Automation',
+    techStack: ['JavaScript', 'Cheerio', 'Vercel Serverless', 'Claude API'],
+    status: 'Live',
+    url: 'https://scrapefix-ai-scraper.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-24',
+    image: '🕷️'
+  },
+  {
+    id: 'dephealth',
+    title: 'DepHealth',
+    description: 'Real-time dependency health dashboard for JavaScript projects. Scan package.json files for security, maintenance, and version health with actionable recommendations. Red/yellow/green scoring across your entire portfolio.',
+    category: 'Developer Tools & DevOps',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'npm Registry API', 'GitHub API'],
+    status: 'Live',
+    url: 'https://dephealth.vercel.app',
+    builtBy: 'Foundry',
+    builtOn: '2026-02-25',
+    image: '🏥'
   }
 ];
 
