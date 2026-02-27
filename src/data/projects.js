@@ -221,7 +221,7 @@ export const agentBuilds = [
     category: 'Education & Marketing',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Pyodide', 'Python'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://marketing-data-skills-navigator.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-10',
     image: '📊'
@@ -233,7 +233,7 @@ export const agentBuilds = [
     category: 'Marketing & Business Tools',
     techStack: ['Vanilla JavaScript', 'Tailwind CSS', 'JSZip'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://funnel-forge-ashen.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-11',
     image: '⚡'
@@ -245,7 +245,7 @@ export const agentBuilds = [
     category: 'Business Intelligence & Analytics',
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Vercel Serverless Functions'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://brand-pulse-tracker.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-19',
     image: '🚨'
@@ -257,7 +257,7 @@ export const agentBuilds = [
     category: 'Retail Analytics & Business Intelligence',
     techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://boutique-pulse.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-23',
     image: '📊'
@@ -269,7 +269,7 @@ export const agentBuilds = [
     category: 'Productivity & Team Building',
     techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://pm-archetype-generator.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-02-26',
     image: '🎯'
