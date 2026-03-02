@@ -381,6 +381,18 @@ export const agentBuilds = [
     builtBy: 'Foundry',
     builtOn: '2026-02-25',
     image: '🏥'
+  },
+  {
+    id: 'aso-clarity',
+    title: 'ASO Clarity',
+    description: 'Skip the noise. Focus on what converts. The only ASO tool that analyzes what actually drives App Store conversions - app name clarity and screenshot story. Free, instant results in 30 seconds.',
+    category: 'Marketing & Developer Tools',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-03-01',
+    image: '📱'
   }
 ];
 
