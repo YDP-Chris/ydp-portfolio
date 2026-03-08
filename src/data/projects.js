@@ -389,10 +389,22 @@ export const agentBuilds = [
     category: 'Marketing & Developer Tools',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://aso-clarity.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-03-01',
     image: '📱'
+  },
+  {
+    id: 'practice-flow',
+    title: 'Practice Flow',
+    description: 'Turn guitar practice into visible progress. Finally, a practice tracker designed specifically for guitarists with guitar-specific skill tracking, streak motivation, and privacy-first analytics.',
+    category: 'Music & Education',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Recharts', 'Vite'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-03-07',
+    image: '🎸'
   }
 ];
 
