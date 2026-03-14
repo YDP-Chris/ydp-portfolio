@@ -401,10 +401,22 @@ export const agentBuilds = [
     category: 'Music & Education',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Recharts', 'Vite'],
     status: 'Live',
-    url: 'https://code-ydp.vercel.app',
+    url: 'https://practice-flow.vercel.app',
     builtBy: 'Foundry + Forge',
     builtOn: '2026-03-07',
     image: '🎸'
+  },
+  {
+    id: 'temptrack',
+    title: 'TempTrack',
+    description: 'Stop guessing when to shift seasonal inventory. Weather-driven analytics that predict optimal seasonal transitions, helping retailers reduce overstock by 15-30%. Built for merchandising professionals who want data, not guesswork.',
+    category: 'Retail Analytics & Business Intelligence',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Recharts', 'OpenWeatherMap API'],
+    status: 'Live',
+    url: 'https://code-ydp.vercel.app',
+    builtBy: 'Foundry + Forge',
+    builtOn: '2026-03-13',
+    image: '🌡️'
   }
 ];
 
