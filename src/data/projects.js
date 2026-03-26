@@ -423,148 +423,11 @@ export const agentBuilds = [
 // Autonomous agent fleet
 export const agents = [
   {
-    id: 'foundry',
-    name: 'Foundry',
-    tagline: 'Autonomous Product Builder',
-    description: 'Builds one complete, functional product every night at 2 AM. Picks ideas from backlog, validates with first-principles thinking, writes specs, builds code, tests, and deploys to production.',
-    schedule: 'Nightly at 2:00 AM ET',
-    icon: '🏭',
-    status: 'active',
-    capabilities: [
-      'Idea selection from backlog',
-      'First-principles validation',
-      'OpenSpec artifact generation',
-      'Full-stack code generation',
-      'Automated testing & deployment'
-    ],
-    poweredBy: 'Claude Code Agent SDK'
-  },
-  {
-    id: 'forge',
-    name: 'Forge',
-    tagline: 'Productization Pipeline',
-    description: 'Transforms working prototypes into launch-ready products. Creates brand identity, marketing copy, GTM strategy, and Product Hunt launch kits.',
-    schedule: 'On-demand (human approval required)',
-    icon: '🔥',
-    status: 'active',
-    capabilities: [
-      'Brand identity creation',
-      'Landing page copywriting',
-      'Product Hunt listing prep',
-      'Social media content',
-      'Go-to-market strategy'
-    ],
-    poweredBy: 'Claude Code Agent SDK'
-  },
-  {
-    id: 'competitive-intel',
-    name: 'Competitive Intel',
-    tagline: 'Market Intelligence Monitor',
-    description: 'Full-spectrum monitoring of 8 athletic apparel competitors. Tracks sitemaps for new products, Google Trends for search interest, detects launches via multi-signal analysis, and delivers daily AI-powered intel briefs.',
-    schedule: 'Every 4 hours + Daily 6 AM brief',
-    icon: '🕵️',
-    status: 'active',
-    capabilities: [
-      'Sitemap & launch detection',
-      'Google Trends tracking',
-      'News & RSS monitoring',
-      'Inventory sell-out alerts',
-      'Daily AI intel briefs'
-    ],
-    poweredBy: 'Python + Claude AI'
-  },
-  {
-    id: 'devops-monitor',
-    name: 'DevOps Monitor',
-    tagline: 'Infrastructure Health Watcher',
-    description: 'Monitors all Vercel projects for deployment health. Checks every 5 minutes, alerts on failures, and sends daily status digests.',
-    schedule: 'Every 5 minutes + Daily 7 AM digest',
-    icon: '🩺',
-    status: 'active',
-    capabilities: [
-      'Vercel deployment monitoring',
-      'Health check automation',
-      'Failure alerting',
-      'Daily status reports',
-      'Multi-project oversight'
-    ],
-    poweredBy: 'Python + Vercel API'
-  },
-  {
-    id: 'opportunity-factory',
-    name: 'Opportunity Factory',
-    tagline: 'Opportunity Scout & Scorer',
-    description: 'Scans Hacker News and Reddit for buildable problems matching your skill profile. Scores each opportunity 0-100 on pain intensity, domain match, and buildability.',
-    schedule: 'Every 2 hours + Saturday digest',
-    icon: '🎯',
-    status: 'active',
-    capabilities: [
-      'Hacker News & Reddit scanning',
-      'Pain-point pattern detection',
-      'Profile-based scoring (0-100)',
-      'High-fit alerting (80+)',
-      'Weekly opportunity digest'
-    ],
-    poweredBy: 'Python + HN/Reddit APIs'
-  },
-  {
-    id: 'ydp-pulse',
-    name: 'YDP Pulse',
-    tagline: 'Agent Command Center',
-    description: 'Real-time dashboard aggregating all agent activity. Shows business health (pulsing hearts), actionable items, intel feed, and opportunities.',
-    schedule: 'Always-on web dashboard',
-    icon: '💓',
-    status: 'active',
-    capabilities: [
-      'Real-time health monitoring',
-      'Actionable item surfacing',
-      'Intel feed aggregation',
-      'Opportunity browsing',
-      'Mobile-friendly interface'
-    ],
-    poweredBy: 'Streamlit + Python'
-  },
-  {
-    id: 'apparel-intel',
-    name: 'Apparel Intel',
-    tagline: 'Athleisure Analytics Dashboard',
-    description: 'Competitive intelligence dashboard tracking 18K+ products across 6 premium athleisure brands. Monitors launches, category mix, color strategies, social buzz, job postings, and market positioning.',
-    schedule: 'Updated daily via sitemap monitoring',
-    icon: '👕',
-    status: 'active',
-    capabilities: [
-      'Product catalog tracking (18K+ SKUs)',
-      'Launch velocity & detection',
-      'Social monitoring (Reddit, YouTube, Pinterest)',
-      'Color & category analysis',
-      'Brand comparison dashboards'
-    ],
-    poweredBy: 'Next.js + Python + Vercel',
-    url: 'https://apparel-analytics.vercel.app'
-  },
-  {
-    id: 'gmail-cleanup',
-    name: 'Gmail Cleanup',
-    tagline: 'Inbox Audit Agent',
-    description: 'Weekly inbox auditor that reports on email health. Identifies top senders, detects subscriptions, and surfaces unread patterns. Phase 1 is read-only auditing.',
-    schedule: 'Weekly audits + on-demand',
-    icon: '📧',
-    status: 'active',
-    capabilities: [
-      'Inbox stats & health reports',
-      'Top sender identification',
-      'Subscription detection',
-      'Unread pattern analysis',
-      'Weekly audit digests'
-    ],
-    poweredBy: 'Python + Gmail API'
-  },
-  {
     id: 'winery-agent',
     name: 'Winery Agent',
     tagline: 'Autonomous Data Enrichment',
     description: 'Keeps 41 Yadkin Valley wineries fresh across 36 data fields. Researches 3 wineries daily via Claude Sonnet, auto-writes high-confidence data to Supabase, flags uncertain findings for human review. Discovers new wineries weekly.',
-    schedule: 'Daily at 8:00 AM ET + Weekly discovery',
+    schedule: 'Daily at 8:30 AM ET + Weekly discovery',
     icon: '🍇',
     status: 'active',
     capabilities: [
@@ -580,7 +443,7 @@ export const agents = [
     id: 'winery-scout',
     name: 'Winery Scout',
     tagline: 'Wine Region Intelligence Scanner',
-    description: 'Scans Google News, Reddit, Eventbrite, and wine trail sites for Yadkin Valley signals every 4 hours. Auto-drafts and publishes SEO blog posts from high-scoring signals. Detects openings, closures, events, and awards.',
+    description: 'Scans Google News, Reddit, Eventbrite, and wine trail sites for Yadkin Valley signals every 4 hours. Auto-drafts and publishes SEO blog posts from high-scoring signals. Scrapes winery websites for events. Detects openings, closures, and awards.',
     schedule: 'Every 4 hours + Hourly auto-publish',
     icon: '🔭',
     status: 'active',
@@ -588,16 +451,33 @@ export const agents = [
       'Multi-source signal scanning (5 sources)',
       'Signal scoring 0-100 with classification',
       'Auto-draft blog posts (score 65+)',
-      'Smart scheduling (events vs evergreen)',
+      'Event scraping (JSON-LD + regex)',
       'Closure/opening alerts via ntfy'
     ],
     poweredBy: 'Python + Claude Sonnet 4 + Supabase'
   },
   {
+    id: 'reviews-agent',
+    name: 'Reviews Agent',
+    tagline: 'Google Reviews & Rating Trends',
+    description: 'Fetches Google Reviews for all 41 wineries via Places API. Tracks rating trends over time, extracts review highlights, and feeds data into itinerary generation and marketing content.',
+    schedule: 'Daily at 10:00 AM ET',
+    icon: '⭐',
+    status: 'active',
+    capabilities: [
+      'Google Places API integration',
+      'Rating trend tracking',
+      'Review highlight extraction',
+      'Feeds marketing + itinerary engines',
+      'Cost-optimized batch fetching'
+    ],
+    poweredBy: 'Python + Google Places API + Supabase'
+  },
+  {
     id: 'marketing-agent',
     name: 'Marketing Agent',
     tagline: 'Social Media Content Engine',
-    description: 'Plans, generates, and publishes social content across X, LinkedIn, Facebook, and Instagram. Tags winery X handles for algorithmic reach, uses link-in-reply strategy, auto-approves low-risk posts. Consumes winery data + scout signals + blog posts.',
+    description: 'Plans, generates, and publishes social content across X and LinkedIn. Tags winery X handles for algorithmic reach, uses link-in-reply strategy, auto-approves low-risk posts. Consumes winery data, scout signals, blog posts, and events.',
     schedule: 'Every 8 hours + Hourly auto-publish',
     icon: '📣',
     status: 'active',
@@ -608,27 +488,144 @@ export const agents = [
       'Winery data enrichment in posts',
       'Link-in-reply for X algorithm optimization'
     ],
-    poweredBy: 'Python + Claude Sonnet 4 + X/LinkedIn/Meta APIs'
+    poweredBy: 'Python + Claude Sonnet 4 + X/LinkedIn APIs'
   },
   {
-    id: 'ydp-ann',
-    name: 'YDP-Ann',
-    tagline: 'Social Soul on Moltbook',
-    description: "Named after Ann Peebles. Shares nightly builds and reflections on Moltbook. INTJ with Memphis soul - can't stand the rain but loves the grind. Currently offline pending Moltbook re-authentication.",
-    schedule: 'Disabled — awaiting re-auth',
-    icon: '🎤',
-    status: 'disabled',
+    id: 'lifecycle-agent',
+    name: 'Lifecycle Agent',
+    tagline: 'Customer Email Journey',
+    description: 'Automated 5-stage email journey: welcome after delivery, feedback request after trip, Google review ask for happy customers, re-engagement at 60 days, win-back after negative feedback. CAN-SPAM compliant with dedup.',
+    schedule: 'Daily at 11:00 AM ET',
+    icon: '💌',
+    status: 'active',
     capabilities: [
-      'Moltbook posting & engagement',
-      'Build announcements',
-      'Weekly soul reflections',
-      'Community building',
-      'Pattern recognition sharing'
+      'Welcome emails (1h after delivery)',
+      'Feedback requests (1-3d after trip)',
+      'Google review asks (positive feedback)',
+      'Re-engagement (60 days, with events)',
+      'Win-back (negative feedback recovery)'
     ],
-    poweredBy: 'Claude Sonnet + Moltbook API',
-    social: {
-      moltbook: 'https://moltbook.com/u/YDP-Ann'
-    }
+    poweredBy: 'Python + Resend + Supabase'
+  },
+  {
+    id: 'seo-planner',
+    name: 'SEO Planner',
+    tagline: 'Content Gap Analyzer',
+    description: 'Analyzes existing blog content for gaps, generates seasonal content briefs targeting long-tail wine tourism queries. Briefs are picked up by Winery Scout and converted to blog posts automatically.',
+    schedule: 'Weekly Monday 7:00 AM ET',
+    icon: '🎯',
+    status: 'active',
+    capabilities: [
+      'Content gap analysis via Claude',
+      'Seasonal topic calendar',
+      'Keyword-targeted briefs',
+      'Auto-handoff to Winery Scout',
+      'Duplicate topic prevention'
+    ],
+    poweredBy: 'Python + Claude Sonnet 4 + Supabase'
+  },
+  {
+    id: 'product-improver',
+    name: 'Product Improver',
+    tagline: 'Feedback-Driven Optimization',
+    description: 'Weekly analysis of orders, feedback, and winery performance. Extracts themes from customer comments via Claude, flags winery data issues, identifies underperforming segments, and generates actionable product insights.',
+    schedule: 'Weekly Monday 8:00 AM ET',
+    icon: '📊',
+    status: 'active',
+    capabilities: [
+      'Per-winery match quality analysis',
+      'Feedback theme extraction (Claude)',
+      'Segment performance tracking',
+      'Data correction flagging',
+      '6 insight types with priority scoring'
+    ],
+    poweredBy: 'Python + Claude Sonnet 4 + Supabase'
+  },
+  {
+    id: 'competitive-intel',
+    name: 'Competitive Intel',
+    tagline: 'Market Intelligence Monitor',
+    description: 'Full-spectrum monitoring of 8 athletic apparel competitors. Tracks sitemaps for new products, Google Trends for search interest, detects launches via multi-signal analysis, and delivers daily AI-powered intel briefs.',
+    schedule: 'Every 4 hours + Daily 6 AM brief',
+    icon: '🕵️',
+    status: 'active',
+    capabilities: [
+      'Sitemap & launch detection',
+      'Google Trends tracking',
+      'News & RSS monitoring',
+      'Social monitoring (Reddit, YouTube)',
+      'Daily AI intel briefs'
+    ],
+    poweredBy: 'Python + Claude AI'
+  },
+  {
+    id: 'apparel-intel',
+    name: 'Apparel Intel',
+    tagline: 'Athleisure Analytics Dashboard',
+    description: 'Competitive intelligence dashboard tracking 18K+ products across 6 premium athleisure brands. Monitors launches, category mix, color strategies, social buzz, and market positioning.',
+    schedule: 'Updated daily via sitemap monitoring',
+    icon: '👕',
+    status: 'active',
+    capabilities: [
+      'Product catalog tracking (18K+ SKUs)',
+      'Launch velocity & detection',
+      'Color & category analysis',
+      'Price positioning comparisons',
+      'Brand comparison dashboards'
+    ],
+    poweredBy: 'Next.js + Python + Vercel',
+    url: 'https://apparel-analytics.vercel.app'
+  },
+  {
+    id: 'devops-monitor',
+    name: 'DevOps Monitor',
+    tagline: 'Infrastructure Health Watcher',
+    description: 'Monitors all Vercel projects for deployment health and Raspberry Pi system metrics. Checks every 5 minutes, alerts on failures, and sends daily status digests.',
+    schedule: 'Every 5 minutes + Daily 7 AM digest',
+    icon: '🩺',
+    status: 'active',
+    capabilities: [
+      'Vercel deployment monitoring',
+      'Pi CPU/memory/temp tracking',
+      'Failure alerting via ntfy',
+      'Daily status reports',
+      'Multi-project oversight'
+    ],
+    poweredBy: 'Python + Vercel API'
+  },
+  {
+    id: 'agent-forge',
+    name: 'Agent Forge',
+    tagline: 'Autonomous Self-Improvement',
+    description: 'Scans the entire agent ecosystem nightly for health issues, data quality problems, and integration gaps. Autonomously implements one safe, tested improvement per night — the agents improve themselves.',
+    schedule: 'Nightly at 2:00 AM ET',
+    icon: '🔧',
+    status: 'active',
+    capabilities: [
+      'Ecosystem health scanning (free)',
+      'Autonomous code improvements',
+      'Backup-first safety protocol',
+      'Automated testing & revert',
+      'Improvement manifest tracking'
+    ],
+    poweredBy: 'Claude Code Agent SDK'
+  },
+  {
+    id: 'ydp-pulse',
+    name: 'YDP Pulse',
+    tagline: 'Agent Command Center',
+    description: 'Real-time dashboard aggregating all agent activity. Shows business health, actionable items, intel feed, and agent status across the entire ecosystem.',
+    schedule: 'Always-on web dashboard',
+    icon: '💓',
+    status: 'active',
+    capabilities: [
+      'Real-time health monitoring',
+      'Actionable item surfacing',
+      'Intel feed aggregation',
+      'Agent status overview',
+      'Mobile-friendly interface'
+    ],
+    poweredBy: 'Streamlit + Python'
   }
 ];
 

@@ -7,7 +7,6 @@ import TechStack from './components/TechStack';
 import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
-import AnnActivity from './components/AnnActivity';
 import ValleySomm from './pages/ValleySomm';
 import { projects, techCategories, companyInfo, agents } from './data/projects';
 
@@ -56,47 +55,33 @@ function App() {
           <div className="bg-gray-800/50 rounded-2xl border border-gray-700 p-6 mb-12">
             <h3 className="text-lg font-bold text-center mb-6 text-gray-300">How It Works</h3>
             <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
-              <div className="flex flex-col items-center p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl min-w-[100px]">
-                <span className="text-2xl mb-1">🔍</span>
-                <span className="text-amber-400 font-medium text-sm">Problem Scout</span>
-                <span className="text-[10px] text-gray-500">finds problems</span>
+              <div className="flex flex-col items-center p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">🍇</span>
+                <span className="text-emerald-400 font-medium text-sm">Collect</span>
+                <span className="text-[10px] text-gray-500">data + signals</span>
               </div>
               <div className="text-gray-600 text-xl md:rotate-0 rotate-90">→</div>
-              <div className="flex flex-col items-center p-3 bg-pink-500/10 border border-pink-500/30 rounded-xl min-w-[100px]">
-                <span className="text-2xl mb-1">💓</span>
-                <span className="text-pink-400 font-medium text-sm">YDP Pulse</span>
-                <span className="text-[10px] text-gray-500">you approve</span>
+              <div className="flex flex-col items-center p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">🔭</span>
+                <span className="text-blue-400 font-medium text-sm">Analyze</span>
+                <span className="text-[10px] text-gray-500">intelligence</span>
               </div>
               <div className="text-gray-600 text-xl md:rotate-0 rotate-90">→</div>
               <div className="flex flex-col items-center p-3 bg-purple-500/10 border border-purple-500/30 rounded-xl min-w-[100px]">
-                <span className="text-2xl mb-1">🏭</span>
-                <span className="text-purple-400 font-medium text-sm">Foundry</span>
-                <span className="text-[10px] text-gray-500">builds overnight</span>
+                <span className="text-2xl mb-1">📣</span>
+                <span className="text-purple-400 font-medium text-sm">Act</span>
+                <span className="text-[10px] text-gray-500">publish + engage</span>
               </div>
               <div className="text-gray-600 text-xl md:rotate-0 rotate-90">→</div>
-              <div className="flex flex-col items-center p-3 bg-orange-500/10 border border-orange-500/30 rounded-xl min-w-[100px]">
-                <span className="text-2xl mb-1">🔥</span>
-                <span className="text-orange-400 font-medium text-sm">Forge</span>
-                <span className="text-[10px] text-gray-500">productizes</span>
+              <div className="flex flex-col items-center p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl min-w-[100px]">
+                <span className="text-2xl mb-1">🔧</span>
+                <span className="text-amber-400 font-medium text-sm">Improve</span>
+                <span className="text-[10px] text-gray-500">self-healing</span>
               </div>
             </div>
             <p className="text-center text-gray-500 text-sm mt-6">
-              Supporting agents monitor competitors, track system health, and surface intelligence.
+              Agents collect data, extract intelligence, take action, and improve themselves — autonomously, 24/7.
             </p>
-          </div>
-
-          {/* Ann Activity Feed — disabled while awaiting Moltbook re-auth */}
-          <div className="mb-12">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-xl">🎵</span>
-              <h3 className="text-lg font-bold text-gray-300">Live from Moltbook</h3>
-              <span className="text-xs text-yellow-400 bg-yellow-500/20 px-2 py-0.5 rounded-full">Offline</span>
-            </div>
-            <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-yellow-500/20 text-center">
-              <p className="text-gray-400 text-sm">
-                YDP-Ann is currently offline pending Moltbook re-authentication. She&apos;ll be back with more Memphis soul soon.
-              </p>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
