@@ -22,8 +22,8 @@ export default function ValleySomm() {
           </Link>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 bg-purple-500/10 text-purple-400 px-3 py-1 rounded-full text-xs font-medium mb-4 border border-purple-500/20">
-                <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"></span>
+              <div className="inline-flex items-center gap-2 bg-green-500/20 text-green-300 px-3 py-1.5 rounded-full text-sm font-medium mb-4 border border-green-500/30">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                 Live Product
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
@@ -36,7 +36,7 @@ export default function ValleySomm() {
               href={product.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded-lg font-medium transition-colors flex-shrink-0"
+              className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-bold transition-colors flex-shrink-0 shadow-lg"
             >
               Visit valleysomm.com
               <span className="text-sm">→</span>
