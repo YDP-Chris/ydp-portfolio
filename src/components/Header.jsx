@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ExternalLink } from 'lucide-react';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   const scrollToSection = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    if (!isHome) {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMenuOpen(false);
   };
 
@@ -14,12 +25,12 @@ function Header() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">YDP</span>
             </div>
             <span className="font-bold text-gray-900">Yadkin Data Partners</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
@@ -29,18 +40,21 @@ function Header() {
             >
               Portfolio
             </button>
+            <Link
+              to="/valleysomm"
+              className={`transition-colors flex items-center gap-1 ${
+                location.pathname === '/valleysomm' ? 'text-purple-600 font-medium' : 'text-gray-700 hover:text-primary'
+              }`}
+            >
+              <span className="text-sm">🍷</span>
+              ValleySomm
+            </Link>
             <button
               onClick={() => scrollToSection('agents')}
               className="text-gray-700 hover:text-primary transition-colors flex items-center gap-1"
             >
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               Agent Fleet
-            </button>
-            <button
-              onClick={() => scrollToSection('tech-stack')}
-              className="text-gray-700 hover:text-primary transition-colors"
-            >
-              Capabilities
             </button>
             <button
               onClick={() => scrollToSection('contact')}
@@ -73,18 +87,22 @@ function Header() {
               >
                 Portfolio
               </button>
+              <Link
+                to="/valleysomm"
+                onClick={() => setIsMenuOpen(false)}
+                className={`py-2 flex items-center gap-2 ${
+                  location.pathname === '/valleysomm' ? 'text-purple-600 font-medium' : 'text-gray-700 hover:text-primary'
+                }`}
+              >
+                <span className="text-sm">🍷</span>
+                ValleySomm
+              </Link>
               <button
                 onClick={() => scrollToSection('agents')}
                 className="text-left text-gray-700 hover:text-primary transition-colors py-2 flex items-center gap-2"
               >
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                 Agent Fleet
-              </button>
-              <button
-                onClick={() => scrollToSection('tech-stack')}
-                className="text-left text-gray-700 hover:text-primary transition-colors py-2"
-              >
-                Capabilities
               </button>
               <button
                 onClick={() => scrollToSection('contact')}

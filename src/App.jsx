@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProjectCard from './components/ProjectCard';
@@ -7,6 +8,7 @@ import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
 import AnnActivity from './components/AnnActivity';
+import ValleySomm from './pages/ValleySomm';
 import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
 
 // Forge webhook URL - Cloudflare tunnel for public access
@@ -54,9 +56,8 @@ function App() {
     setForgeLoading(false);
   };
 
-  return (
-    <div className="min-h-screen bg-white">
-      <Header />
+  const HomePage = () => (
+    <>
       <Hero />
 
       {/* Projects Section */}
@@ -478,8 +479,16 @@ function App() {
         isOpen={showCommandCenter}
         onClose={() => setShowCommandCenter(false)}
       />
+    </>
+  );
 
-      {/* Public Pi Status Bar */}
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/valleysomm" element={<ValleySomm />} />
+      </Routes>
       <PiStatusBar />
     </div>
   );
