@@ -2,9 +2,9 @@ export const projects = [
   {
     id: 'valley-somm',
     title: 'Valley Somm',
-    description: 'AI-powered wine trip planner for Yadkin Valley. Creates personalized itineraries, matches you with wineries, and handles reservations for your wine country adventure.',
+    description: 'Full-stack AI wine trip planner with 41 enriched wineries, personalized quiz-to-itinerary pipeline via Claude Sonnet 4, Google Routes optimization, PDF + web delivery, Stripe payments, auto-generated blog, and 3 autonomous agents keeping data fresh and marketing on autopilot.',
     category: 'Wine & Hospitality',
-    techStack: ['Next.js', 'Tailwind CSS', 'Node.js', 'AI/ML'],
+    techStack: ['Next.js 14', 'TypeScript', 'Supabase', 'Claude AI', 'Google Routes', 'Stripe', 'Vercel'],
     status: 'Live',
     url: 'https://valleysomm.com',
     image: '🍷',
@@ -558,6 +558,57 @@ export const agents = [
       'Weekly audit digests'
     ],
     poweredBy: 'Python + Gmail API'
+  },
+  {
+    id: 'winery-agent',
+    name: 'Winery Agent',
+    tagline: 'Autonomous Data Enrichment',
+    description: 'Keeps 41 Yadkin Valley wineries fresh across 36 data fields. Researches 3 wineries daily via Claude Sonnet, auto-writes high-confidence data to Supabase, flags uncertain findings for human review. Discovers new wineries weekly.',
+    schedule: 'Daily at 8:00 AM ET + Weekly discovery',
+    icon: '🍇',
+    status: 'active',
+    capabilities: [
+      'Weighted completeness scoring (36 fields)',
+      'Confidence-gated auto-writes (80%+)',
+      'Human-in-the-loop review (50-79%)',
+      'Weekly new winery discovery',
+      'Auto-deactivation of closed wineries'
+    ],
+    poweredBy: 'Python + Claude Sonnet 4 + Supabase'
+  },
+  {
+    id: 'winery-scout',
+    name: 'Winery Scout',
+    tagline: 'Wine Region Intelligence Scanner',
+    description: 'Scans Google News, Reddit, Eventbrite, and wine trail sites for Yadkin Valley signals every 4 hours. Auto-drafts and publishes SEO blog posts from high-scoring signals. Detects openings, closures, events, and awards.',
+    schedule: 'Every 4 hours + Hourly auto-publish',
+    icon: '🔭',
+    status: 'active',
+    capabilities: [
+      'Multi-source signal scanning (5 sources)',
+      'Signal scoring 0-100 with classification',
+      'Auto-draft blog posts (score 65+)',
+      'Smart scheduling (events vs evergreen)',
+      'Closure/opening alerts via ntfy'
+    ],
+    poweredBy: 'Python + Claude Sonnet 4 + Supabase'
+  },
+  {
+    id: 'marketing-agent',
+    name: 'Marketing Agent',
+    tagline: 'Social Media Content Engine',
+    description: 'Plans, generates, and publishes social content across X, LinkedIn, Facebook, and Instagram. Tags winery X handles for algorithmic reach, uses link-in-reply strategy, auto-approves low-risk posts. Consumes winery data + scout signals + blog posts.',
+    schedule: 'Every 8 hours + Hourly auto-publish',
+    icon: '📣',
+    status: 'active',
+    capabilities: [
+      'Multi-platform content generation',
+      'X threads, polls, and @ mention strategy',
+      'Risk-based auto-approval workflow',
+      'Winery data enrichment in posts',
+      'Link-in-reply for X algorithm optimization'
+    ],
+    poweredBy: 'Python + Claude Sonnet 4 + X/LinkedIn/Meta APIs'
   },
   {
     id: 'ydp-ann',

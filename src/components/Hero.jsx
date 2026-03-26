@@ -18,8 +18,8 @@ function Hero() {
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            While you sleep, AI agents ship working products. See 4 live applications across wine, nonprofits,
-            field service & music education. The future of development is autonomous.
+            While you sleep, AI agents ship working products, enrich databases, scan for intel, and publish
+            marketing content. See live applications across wine, nonprofits, field service & music education.
           </p>
 
           {/* CTA Buttons */}
