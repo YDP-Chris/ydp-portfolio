@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -9,52 +9,10 @@ import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
 import AnnActivity from './components/AnnActivity';
 import ValleySomm from './pages/ValleySomm';
-import { projects, techCategories, companyInfo, agentBuilds, agents } from './data/projects';
-
-// Forge webhook URL - Cloudflare tunnel for public access
-const FORGE_WEBHOOK_URL = import.meta.env.VITE_FORGE_WEBHOOK_URL || 'https://api.yadkindatapartners.com';
+import { projects, techCategories, companyInfo, agents } from './data/projects';
 
 function App() {
-  const [pendingForge, setPendingForge] = useState(null);
-  const [forgeLoading, setForgeLoading] = useState(false);
-  const [forgeMessage, setForgeMessage] = useState('');
   const [showCommandCenter, setShowCommandCenter] = useState(false);
-
-  // Check for pending Forge jobs
-  useEffect(() => {
-    const checkPending = async () => {
-      try {
-        const res = await fetch(`${FORGE_WEBHOOK_URL}/forge/status`);
-        const data = await res.json();
-        if (data.pending) {
-          setPendingForge(data);
-        }
-      } catch (err) {
-        // Webhook not available - that's OK
-        console.log('Forge webhook not available');
-      }
-    };
-    checkPending();
-    // Check every 30 seconds
-    const interval = setInterval(checkPending, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleForgeAction = async (action) => {
-    setForgeLoading(true);
-    setForgeMessage('');
-    try {
-      const res = await fetch(`${FORGE_WEBHOOK_URL}/forge/${action}`, { method: 'POST' });
-      const data = await res.json();
-      setForgeMessage(data.message);
-      if (data.success) {
-        setPendingForge(null);
-      }
-    } catch (err) {
-      setForgeMessage('Error connecting to Forge server');
-    }
-    setForgeLoading(false);
-  };
 
   const HomePage = () => (
     <>
@@ -78,111 +36,6 @@ function App() {
           </div>
         </div>
       </section>
-
-      {/* Agent Created Builds Section */}
-      {agentBuilds.length > 0 && (
-        <section id="agent-builds" className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-                Autonomous Development
-              </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Agent Created Builds</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Products built autonomously by our Foundry and Forge AI agents during nightly build cycles.
-              </p>
-            </div>
-
-            {/* Pending Forge Approval Banner */}
-            {pendingForge && (
-              <div className="mb-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">🔥</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900">New Build Ready for Forge</h3>
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">{pendingForge.product_name}</span> is waiting for productization
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    {forgeMessage && (
-                      <span className="text-sm text-gray-600">{forgeMessage}</span>
-                    )}
-                    <button
-                      onClick={() => handleForgeAction('approve')}
-                      disabled={forgeLoading}
-                      className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-lg font-medium hover:from-orange-600 hover:to-amber-600 transition-all disabled:opacity-50 shadow-md"
-                    >
-                      {forgeLoading ? 'Processing...' : '✓ Send to Forge'}
-                    </button>
-                    <button
-                      onClick={() => handleForgeAction('skip')}
-                      disabled={forgeLoading}
-                      className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-all disabled:opacity-50"
-                    >
-                      Skip
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {agentBuilds.map((build) => (
-                <div key={build.id} className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      {build.image?.startsWith('/') || build.image?.startsWith('http') ? (
-                        <img src={build.image} alt={build.title} className="w-10 h-10 object-contain rounded" />
-                      ) : (
-                        <span className="text-3xl">{build.image}</span>
-                      )}
-                      <div>
-                        <h3 className="font-bold text-gray-900">{build.title}</h3>
-                        <p className="text-sm text-gray-500">{build.category}</p>
-                      </div>
-                    </div>
-                    <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
-                      {build.status}
-                    </span>
-                  </div>
-
-                  <p className="text-gray-600 mb-4">{build.description}</p>
-
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {build.techStack.map((tech, idx) => (
-                      <span key={idx} className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <div className="text-sm text-gray-500">
-                      <span className="font-medium text-purple-600">{build.builtBy}</span>
-                      <span className="mx-2">·</span>
-                      <span>{build.builtOn}</span>
-                    </div>
-                    {build.url && (
-                      <a
-                        href={build.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline text-sm font-medium"
-                      >
-                        View Live →
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Agents Section */}
       <section id="agents" className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
@@ -342,13 +195,13 @@ function App() {
               </div>
               <div className="w-px h-10 bg-gray-700"></div>
               <div className="text-left">
-                <div className="text-2xl font-bold text-white">{agentBuilds.length}</div>
-                <div className="text-xs text-gray-400">Products Shipped</div>
+                <div className="text-2xl font-bold text-white">4</div>
+                <div className="text-xs text-gray-400">Live Products</div>
               </div>
               <div className="w-px h-10 bg-gray-700"></div>
               <div className="text-left">
                 <div className="text-2xl font-bold text-white">18K+</div>
-                <div className="text-xs text-gray-400">Products Tracked</div>
+                <div className="text-xs text-gray-400">Data Points Tracked</div>
               </div>
               <div className="w-px h-10 bg-gray-700"></div>
               <div className="text-left">
