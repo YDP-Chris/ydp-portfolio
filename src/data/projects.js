@@ -626,6 +626,91 @@ export const agents = [
       'Mobile-friendly interface'
     ],
     poweredBy: 'Streamlit + Python'
+  },
+  {
+    id: 'cron-healer',
+    name: 'Cron Healer',
+    tagline: 'Self-Healing Job Orchestrator',
+    description: 'Wraps all 30 cron jobs with automatic failure detection and AI-powered self-repair. On failure, Claude diagnoses the root cause, applies a fix, and retries — most issues resolve without human intervention.',
+    schedule: 'Wraps every scheduled job',
+    icon: '🩹',
+    status: 'active',
+    capabilities: [
+      'Universal cron job wrapper',
+      'AI-powered failure diagnosis',
+      'Autonomous fix + retry',
+      'Central health log tracking',
+      'ntfy alerts on persistent failures'
+    ],
+    poweredBy: 'Bash + Claude API'
+  },
+  {
+    id: 'gmail-memex',
+    name: 'Gmail Cleanup',
+    tagline: 'Inbox Auditor & Knowledge Pipeline',
+    description: 'Weekly inbox auditor that reports on email health, detects subscriptions, and surfaces actionable messages. Nightly Memex pipeline extracts key information into a personal knowledge vault.',
+    schedule: 'Nightly pipeline + Weekly audit',
+    icon: '📬',
+    status: 'active',
+    capabilities: [
+      'Inbox stats & age breakdown',
+      'Top sender analysis',
+      'Subscription detection',
+      'Nightly knowledge extraction',
+      'Weekly audit reports via ntfy'
+    ],
+    poweredBy: 'Python + Gmail API + OAuth2'
+  },
+  {
+    id: 'coordinator',
+    name: 'Coordinator',
+    tagline: 'Daily Project Orchestrator',
+    description: 'Morning status aggregator that pulls together agent health, deployment status, and action items across the entire ecosystem into a single daily digest.',
+    schedule: 'Daily at 6:30 AM ET',
+    icon: '📋',
+    status: 'active',
+    capabilities: [
+      'Cross-agent status aggregation',
+      'Daily digest generation',
+      'Action item surfacing',
+      'Ecosystem health summary',
+      'ntfy morning briefing'
+    ],
+    poweredBy: 'Bash + Python'
+  },
+  {
+    id: 'memex-vault',
+    name: 'Memex Vault',
+    tagline: 'Personal Knowledge System',
+    description: 'Automated knowledge vault generating daily briefs, weekly reviews, and ship logs. Synthesizes activity across all agents and projects into a searchable personal intelligence archive.',
+    schedule: 'Daily brief + Weekly review & ship log',
+    icon: '🧠',
+    status: 'active',
+    capabilities: [
+      'Daily multi-source briefings',
+      'Weekly review synthesis',
+      'Ship log generation',
+      'Cross-project activity tracking',
+      'Searchable knowledge archive'
+    ],
+    poweredBy: 'Python + Claude Sonnet 4'
+  },
+  {
+    id: 'autoresearch',
+    name: 'Autoresearch',
+    tagline: 'Nightly Code Quality Agent',
+    description: 'Runs nightly on the ValleySomm codebase to identify code quality issues, performance bottlenecks, and improvement opportunities. Surfaces findings for next-day action.',
+    schedule: 'Weeknights at 3:00 AM ET',
+    icon: '🔬',
+    status: 'active',
+    capabilities: [
+      'Automated code review',
+      'Performance issue detection',
+      'Dependency health checks',
+      'Improvement recommendations',
+      'Nightly quality reports'
+    ],
+    poweredBy: 'Claude Code + Bash'
   }
 ];
 
