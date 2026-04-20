@@ -8,6 +8,7 @@ import ContactForm from './components/ContactForm';
 import CommandCenter from './components/CommandCenter';
 import PiStatusBar from './components/PiStatusBar';
 import ValleySomm from './pages/ValleySomm';
+import PersonalBrand from './pages/PersonalBrand';
 import { projects, techCategories, companyInfo, agents } from './data/projects';
 
 function App() {
@@ -326,6 +327,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/valleysomm" element={<ValleySomm />} />
+        <Route path="/brand" element={<PersonalBrand />} />
       </Routes>
       <PiStatusBar />
     </div>
