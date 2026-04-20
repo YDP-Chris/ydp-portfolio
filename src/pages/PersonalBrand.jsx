@@ -123,6 +123,25 @@ function PersonalBrand() {
     setActionLoading(prev => ({ ...prev, [id]: null }));
   };
 
+  const handleRevise = async (id, feedback) => {
+    setActionLoading(prev => ({ ...prev, [id]: 'revise' }));
+    try {
+      const res = await fetch(`${API_URL}/personal-brand/revise`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id, feedback })
+      });
+      if (res.ok) {
+        fetchQueue();
+        fetchStats();
+      }
+    } catch {}
+    setActionLoading(prev => ({ ...prev, [id]: null }));
+  };
+
   const handleReject = async (id) => {
     setActionLoading(prev => ({ ...prev, [id]: 'reject' }));
     try {
@@ -213,7 +232,7 @@ function PersonalBrand() {
 
         {/* Filter tabs */}
         <div className="flex gap-2 mb-6">
-          {['pending_review', 'approved', 'rejected', ''].map(f => (
+          {['pending_review', 'revision_requested', 'approved', 'rejected', ''].map(f => (
             <button
               key={f || 'all'}
               onClick={() => setFilter(f)}
@@ -223,7 +242,7 @@ function PersonalBrand() {
                   : 'bg-gray-800 text-gray-400 hover:text-white'
               }`}
             >
-              {f === '' ? 'All' : f === 'pending_review' ? 'Pending' : f.charAt(0).toUpperCase() + f.slice(1)}
+              {f === '' ? 'All' : f === 'pending_review' ? 'Pending' : f === 'revision_requested' ? 'Revising' : f.charAt(0).toUpperCase() + f.slice(1)}
             </button>
           ))}
         </div>
@@ -246,6 +265,7 @@ function PersonalBrand() {
                 onToggle={() => setExpandedId(expandedId === item.id ? null : item.id)}
                 onApprove={() => handleApprove(item.id)}
                 onReject={() => handleReject(item.id)}
+                onRevise={(feedback) => handleRevise(item.id, feedback)}
                 actionLoading={actionLoading[item.id]}
               />
             ))}
@@ -274,10 +294,13 @@ function StatCard({ label, value, color }) {
 }
 
 
-function ContentCard({ item, expanded, onToggle, onApprove, onReject, actionLoading }) {
+function ContentCard({ item, expanded, onToggle, onApprove, onReject, onRevise, actionLoading }) {
+  const [feedback, setFeedback] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
   const isPending = item.status === 'pending_review';
   const isApproved = item.status === 'approved';
   const isRejected = item.status === 'rejected';
+  const isRevising = item.status === 'revision_requested';
 
   const statusColors = {
     pending_review: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
@@ -394,23 +417,83 @@ function ContentCard({ item, expanded, onToggle, onApprove, onReject, actionLoad
             )}
           </div>
 
+          {/* Revision context */}
+          {item.revision_of && (
+            <div className="px-5 py-2 border-t border-gray-800 bg-blue-500/5">
+              <span className="text-xs text-blue-400">Revised from {item.revision_of}</span>
+              {item.revision_feedback && (
+                <p className="text-xs text-gray-500 mt-1">Your feedback: "{item.revision_feedback}"</p>
+              )}
+            </div>
+          )}
+
           {/* Action buttons */}
           {isPending && (
-            <div className="px-5 py-3 border-t border-gray-800 flex gap-3 bg-gray-900/50">
-              <button
-                onClick={onApprove}
-                disabled={!!actionLoading}
-                className="flex-1 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm"
-              >
-                {actionLoading === 'approve' ? 'Approving...' : 'Approve'}
-              </button>
-              <button
-                onClick={onReject}
-                disabled={!!actionLoading}
-                className="flex-1 py-2.5 bg-red-600/20 text-red-400 font-semibold rounded-lg hover:bg-red-600/30 border border-red-600/30 transition disabled:opacity-50 text-sm"
-              >
-                {actionLoading === 'reject' ? 'Rejecting...' : 'Reject'}
-              </button>
+            <div className="border-t border-gray-800 bg-gray-900/50">
+              {/* Feedback area */}
+              {showFeedback ? (
+                <div className="px-5 py-3 border-b border-gray-800">
+                  <textarea
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                    placeholder="What should be different? (e.g. 'too long', 'focus on the cost breakdown', 'wrong tone - more direct')"
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 resize-none"
+                    rows={3}
+                    autoFocus
+                  />
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => {
+                        if (feedback.trim()) onRevise(feedback);
+                        setShowFeedback(false);
+                        setFeedback('');
+                      }}
+                      disabled={!feedback.trim() || !!actionLoading}
+                      className="flex-1 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm"
+                    >
+                      {actionLoading === 'revise' ? 'Sending...' : 'Revise with Feedback'}
+                    </button>
+                    <button
+                      onClick={() => { setShowFeedback(false); setFeedback(''); }}
+                      className="px-4 py-2 text-gray-400 hover:text-white text-sm transition"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="px-5 py-3 flex gap-3">
+                <button
+                  onClick={onApprove}
+                  disabled={!!actionLoading}
+                  className="flex-1 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm"
+                >
+                  {actionLoading === 'approve' ? 'Approving...' : 'Approve'}
+                </button>
+                <button
+                  onClick={() => setShowFeedback(!showFeedback)}
+                  disabled={!!actionLoading}
+                  className="flex-1 py-2.5 bg-blue-600/20 text-blue-400 font-semibold rounded-lg hover:bg-blue-600/30 border border-blue-600/30 transition disabled:opacity-50 text-sm"
+                >
+                  Revise
+                </button>
+                <button
+                  onClick={onReject}
+                  disabled={!!actionLoading}
+                  className="flex-1 py-2.5 bg-red-600/20 text-red-400 font-semibold rounded-lg hover:bg-red-600/30 border border-red-600/30 transition disabled:opacity-50 text-sm"
+                >
+                  {actionLoading === 'reject' ? 'Rejecting...' : 'Reject'}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {isRevising && (
+            <div className="px-5 py-3 border-t border-gray-800 bg-gray-900/50">
+              <span className="text-sm text-blue-400">
+                Revising with your feedback... new draft will appear shortly.
+              </span>
             </div>
           )}
 
